@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Cliente : IValidable
+    public class Cliente : Usuario
     {
         private double _saldo;
-        private Usuario _usuario;
 
-        public Cliente(double saldo, Usuario usuario)
+        public Cliente(string nombre, string apellido, string email, string contrasena, double saldo):base(nombre, apellido, email, contrasena)
         {
             _saldo = saldo;
-            _usuario = usuario;
         }
 
         public double Saldo
@@ -26,14 +24,9 @@ namespace Dominio
             }          
         }
 
-        public void Validar()
-        {
-            if (_saldo < 0) throw new Exception("El saldo no puede ser negativo");
-        }
-
         public override string ToString()
         {
-            return $"saldo: {_saldo} {_usuario}";
+            return $"saldo: {_saldo}";
         }
     }
 }

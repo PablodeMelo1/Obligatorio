@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Subasta : IValidable
+    public class Subasta : Publicacion
     {
-        private List<Oferta> _listaOferta = new List<Oferta>(); //Agregue el "new List<Oferta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
+        private List<OfertaSubasta> _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
         private Publicacion _publicacion;
 
-        public Subasta(List<Oferta> listaOferta, Publicacion publicacion)
+        public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, List<Articulo> listaArticulos, Cliente comprador, Administrador usuarioCierre, DateTime fechaCierre):base(nombre, estado, fechaPublicacion, listaArticulos, comprador, usuarioCierre, fechaCierre)
         {
-            _listaOferta = listaOferta;
-            _publicacion = publicacion;
+            
         }
 
         public void Validar()
@@ -40,6 +39,8 @@ namespace Dominio
         //{
         //    //Falta armar este metodo de listar las ofertas
         //}
+
+
         public override string ToString()
         {
             return $"Ofertas: - Publicacion {_publicacion}"; //{ListarOfertas()}
