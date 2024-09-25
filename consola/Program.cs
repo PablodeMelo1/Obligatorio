@@ -19,7 +19,7 @@ namespace consola
                 switch (opcion)
                 {
                     case "1":
-                        Opcion1();
+                        CatalogoArticulos();
                         break;
                     case "2":
                         ListarArticulosPorNombreCategoria();
@@ -47,16 +47,24 @@ namespace consola
             CambioDeColor("                     MENU                      ", ConsoleColor.Yellow);
             CambioDeColor("***********************************************", ConsoleColor.Yellow);
             Console.WriteLine();
-            Console.WriteLine("1 - Listado de todos los clientes");
+            Console.WriteLine("1 - Catalogo de Articulos");
             Console.WriteLine("2 - Listado de articulos por nombre de categoria");
             Console.WriteLine("3 - Alta de Articulos");
             Console.WriteLine("4 - Listar publicaciones por fecha");
             Console.WriteLine("0 - Salir");
         }
 
-        static void Opcion1()
+        static void CatalogoArticulos()
         {
-            
+            Console.Clear();
+            CambioDeColor("Catalogo de Articulos", ConsoleColor.Yellow);
+            Console.WriteLine();
+
+            foreach (Articulo a in miSistema.Articulos)
+            {
+                Console.WriteLine(a);
+            }
+            PressToContinue();
         }
         static void ListarArticulosPorNombreCategoria()
         {

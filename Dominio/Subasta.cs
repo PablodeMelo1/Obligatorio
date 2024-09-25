@@ -28,9 +28,9 @@ namespace Dominio
 
         public void ValidarSaldo()
         {
-            foreach (Oferta oferta in _listaOferta)
+            foreach (OfertaSubasta oferta in _listaOferta)
             {
-                if (oferta.Cliente.Saldo < oferta.Monto) throw new Exception ($"El Cliente no tiene saldo suficiente para cubrir la oferta.");
+                if (oferta.Ofertas.Cliente.Saldo < oferta.Ofertas.Monto) throw new Exception ($"El Cliente no tiene saldo suficiente para cubrir la oferta.");
                 
             }
         }
