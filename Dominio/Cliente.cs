@@ -15,7 +15,10 @@ namespace Dominio
         {
             _saldo = saldo;
         }
-
+        public int Id
+        {
+            get { return _id; }
+        }
         public double Saldo
         {
             get

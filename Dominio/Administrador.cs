@@ -14,6 +14,9 @@ namespace Dominio
         {
             
         }
-
+        public int Id
+        {
+            get { return _id; }
+        }
     }
 }

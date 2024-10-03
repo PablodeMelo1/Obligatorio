@@ -9,10 +9,9 @@ namespace Dominio
 {
     public class Subasta : Publicacion
     {
-        private List<OfertaSubasta> _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
-        private Publicacion _publicacion;
+        private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
 
-        public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, List<Articulo> listaArticulos, Cliente comprador, Administrador usuarioCierre, DateTime fechaCierre):base(nombre, estado, fechaPublicacion, listaArticulos, comprador, usuarioCierre, fechaCierre)
+        public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, List<Articulo> listaArticulos, Cliente? comprador, Administrador? usuarioCierre, DateTime? fechaCierre):base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
             
         }
@@ -20,7 +19,7 @@ namespace Dominio
         public void Validar()
         {
             if (_listaOferta.Count == 0) throw new Exception ("La subasta debe tener al menos una oferta.");
-            if (_publicacion.Estado != TipoEstado.ABIERTA) throw new Exception ("La subasta solo puede realizarse en una publicación abierta.");
+            if (_estado != TipoEstado.ABIERTA) throw new Exception ("La subasta solo puede realizarse en una publicación abierta.");
             ValidarSaldo();
 
 
@@ -35,15 +34,44 @@ namespace Dominio
             }
         }
 
-        //public void ListarOfertas(List<Oferta> listaOfertas)
-        //{
-        //    //Falta armar este metodo de listar las ofertas
-        //}
+        public void RegistrarOferta(OfertaSubasta ofe)
+        {
+            if (ofe == null) throw new Exception("La oferta no puede ser nula");
+            ofe.Validar();
+            _listaOferta.Add(ofe);
+        }
 
 
         public override string ToString()
         {
-            return $"Ofertas: - Publicacion {_publicacion}"; //{ListarOfertas()}
+            string retorno =   $"nombre {_nombre} - estado {_estado}" +
+                $" - fecha {_fechaPublicacion} - comprador si tiene: {_comprador} - Admin cierre: {_usuarioCierre} fecha cierre: {_fechaCierre}";
+
+            if (_listaArticulos.Count == 0)
+            {
+                retorno += $"\n NO TIENE ARTICULOS ASOCIADOS";
+            }
+            else
+            {
+                foreach (Articulo a in _listaArticulos)
+                {
+                    retorno += $"\n {a.ToString()}";
+                }
+            }
+
+            if (_listaOferta.Count == 0)
+            {
+                retorno += $"\n NO TIENE OFERTAS";
+            }
+            else
+            {
+                foreach (OfertaSubasta o in _listaOferta)
+                {
+                    retorno += $"\n {o.ToString()}";
+                }
+            }
+            return retorno;
+
         }
     }
 }

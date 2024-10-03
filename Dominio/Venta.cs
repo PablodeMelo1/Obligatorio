@@ -4,30 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dominio
 {
-    public class Venta : IValidable
+    public class Venta : Publicacion
     {
         private bool _ofertaRelampago;
-        private Publicacion _publicacion;
 
-        public Venta(bool ofertaRelampago, Publicacion publicacion)
+        public Venta(bool ofertaRelampago, string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Administrador? usuarioCierre, DateTime? fechaCierre) :base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
-
-            // Agregue esta validacion ya que una venta necesita una publicacion asociada para funcionar.
-            if (publicacion == null) throw new Exception("La publicación no puede ser nula.");
-            
-
             _ofertaRelampago = ofertaRelampago;
-            _publicacion = publicacion;
-        }
-
-        public void Validar()
-        {
-            //Creo que no hay que validar nada. El bool tiene valor por defeco y el Publicacion ya viene validado
-            if (_publicacion.Estado != TipoEstado.ABIERTA) throw new Exception("La publicación debe estar en estado ABIERTA para realizar una venta.");
-            
         }
 
         public string TieneOfertaRelampago()
@@ -36,10 +23,30 @@ namespace Dominio
             else return "No";
         }
         public override string ToString()
-        {
-            return $"Tiene oferta relampago? {TieneOfertaRelampago()} - Publicacion: {_publicacion} ";
+        {   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - nombre {_nombre} - estado {_estado}" +
+                $" - fecha {_fechaPublicacion} - comprador si tiene: {_comprador} - Admin cierre: {_usuarioCierre} fecha cierre: {_fechaCierre}";
+
+            if (_listaArticulos.Count == 0)
+            {
+                retorno += $"\n NO TIENE ARTICULOS";
+            } else 
+            {
+                foreach (Articulo a in _listaArticulos)
+                {
+                    retorno += $"\n {a.ToString()}";
+                }
+            }
+            return retorno;
+                    
         }
 
-        
+        public void CambioDeColor(string mensaje, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(mensaje);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+
     }
 }

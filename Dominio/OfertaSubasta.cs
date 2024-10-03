@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    internal class OfertaSubasta : IValidable
+    public class OfertaSubasta : IValidable
     {
         private Oferta _oferta;
         private DateTime _fecha;
@@ -29,8 +29,14 @@ namespace Dominio
             if (_oferta == null) throw new Exception("La oferta no puede ser nula");
         }
 
-        
+        public override string ToString()
+        {
+            return $"oferta: {_oferta} - fecha {_fecha}";
+        }
 
-        
+
+
+
+
     }
 }

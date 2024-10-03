@@ -27,6 +27,12 @@ namespace consola
                     case "3":
                         AltaArticulo();
                         break;
+                    case "4":
+                        ListarPublicacionesEntreFechas();
+                        break;
+                    case "5":
+                        ListarPublicaciones();
+                        break;
                     case "0":
                         Console.WriteLine("Salir ...");
                         break;
@@ -129,23 +135,67 @@ namespace consola
             PressToContinue();
 
         }
-        static void Opcion4()
+        static void ListarPublicacionesEntreFechas()
         {
+            DateTime fechaInicio = PedirFecha("Ingrese la fecha de inicio");
+            DateTime fechaFin = PedirFecha("Ingrese la fecha de fin");
 
+            // Listar publicaciones entre las fechas dadas
+            foreach (Publicacion p in miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin))
+            {
+                Console.WriteLine(p);
+            }
+
+            PressToContinue();
         }
+
+        static void ListarPublicaciones()
+        {
+            Console.Clear();
+            CambioDeColor("LISTA DE PUBLICACIONES", ConsoleColor.Yellow);
+            Console.WriteLine();
+
+            foreach(Publicacion p in miSistema.ListarPublicaciones())
+            {
+                Console.WriteLine("\n" + p);
+            }
+
+            PressToContinue();
+        }
+
+
         #endregion
         #region METODOS ADICIONALES
+
+        static string PedirPalabras(string mensaje)
+        {
+            Console.Write(mensaje);
+            string datos = Console.ReadLine();
+            return datos;
+        }
         static void PressToContinue()
         {
             Console.WriteLine();
             Console.WriteLine("Presione una tecla para continuar ...");
             Console.ReadKey();
         }
-        static string PedirPalabras(string mensaje)
+        static DateTime PedirFecha(string mensaje)
         {
-            Console.Write(mensaje);
-            string datosPedidos = Console.ReadLine();
-            return datosPedidos;
+            bool exito = false;
+            DateTime fecha = new DateTime();
+
+            while (!exito)
+            {
+                Console.Write($"{mensaje} [dd/MM/yyyy]:");
+                exito = DateTime.TryParse(Console.ReadLine(), out fecha);
+
+                if (!exito)
+                {
+                    MostrarError("ERROR: La fecha no respeta el formato dd/MM/yyyy");
+                }
+            }
+
+            return fecha;
         }
 
         static void MostrarError(string mensaje)

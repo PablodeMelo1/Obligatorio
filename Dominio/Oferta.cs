@@ -13,15 +13,13 @@ namespace Dominio
         private int s_ultId = 1;
         private Cliente _cliente;
         private double _monto;
-        private DateTime _fecha;
 
-        public Oferta(Cliente cliente, double monto, DateTime fecha)
+        public Oferta(Cliente cliente, double monto)
         {
             _id = s_ultId;
              s_ultId++;
             _cliente = cliente;
             _monto = monto;
-            _fecha = fecha;
         }
 
         //Hice publico la variable monto y cliente para poder utilizarlo en el metodo ValidarSaldo() en la clase Subasta
@@ -43,7 +41,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return $"{_cliente} - monto: {_monto} - fecha: {_fecha}";
+            return $"{_cliente} - monto: {_monto}";
         }
     }
 }

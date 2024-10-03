@@ -10,7 +10,7 @@ namespace Dominio
     public class Articulo : IValidable
     {
         private int _id;
-        private int s_ultId = 1;
+        private static int s_ultId = 1;
         private string _nombre;
         private string _categoria;
         private double _precioVenta;
@@ -23,7 +23,10 @@ namespace Dominio
             _categoria = categoria;
             _precioVenta = precioVenta;
         }
-
+        public int Id
+        {
+            get { return _id; }
+        }
         public string Nombre
         {
             get { return _nombre; }
@@ -45,6 +48,12 @@ namespace Dominio
         {
             return $"Articulo: {_nombre} - Categoria: {_categoria} - Precio de Venta: {_precioVenta}";
         }
-       
+
+        //public override bool Equals(object? obj)
+        //{
+        //    Articulo a = obj as Articulo;
+        //    return a != null && this._nombre == a._nombre;
+        //}
+
     }
 }

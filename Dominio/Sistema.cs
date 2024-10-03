@@ -8,16 +8,16 @@ namespace Dominio
 {
     public class Sistema
     {
-        private List<Publicacion> _listaPublicaciones = new List<Subasta>();
+        private List<Publicacion> _listaPublicaciones = new List<Publicacion>();
         private List<Articulo> _listaArticulos = new List<Articulo>();
-        private List<Usuario> _listaUsuarios = new List<Cliente>();
+        private List<Usuario> _listaUsuarios = new List<Usuario>();
 
         #region properties
-        public List<Venta> Ventas
+        public List<Usuario> Usuario
         {
             get
             {
-                return _listaVentas;
+                return _listaUsuarios;
             }
         }
         public List<Articulo> Articulos
@@ -27,19 +27,23 @@ namespace Dominio
                 return _listaArticulos;
             }
         }
-        public List<Subasta> Subastas
+        public List<Publicacion> Publicacion
         {
             get
             {
-                return _listaSubastas;
+                return _listaPublicaciones;
             }
         }
         #endregion
 
+        
         public Sistema()
         {
             PrecargarArticulos();
             PrecargarUsuarios();
+            PrecargarPublicaciones();
+            PrecargarArticulosAPublicaciones();
+            PrecargarOfertasASubastas();
         }
         // Precargados 50 articulos con la ayuda de ChatGPT
         private void PrecargarArticulos()
@@ -114,7 +118,51 @@ namespace Dominio
             AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333", 26000.00));
 
         }
+        
+        private void PrecargarPublicaciones()
+        {
 
+            AltaPublicacion(new Venta(true, "nombre", TipoEstado.ABIERTA, new DateTime(1920,10,02), null, null, null));
+            AltaPublicacion(new Subasta("Subasta1", TipoEstado.CERRADA, new DateTime(2024, 10, 02), _listaArticulos, ObtenerClientePorId(1), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 29)));
+        }
+        private void PrecargarOfertasASubastas()
+        {
+            AgregarOfertaASubasta(2, 1, 2000, new DateTime(2024, 10, 02));
+        }
+        private void PrecargarArticulosAPublicaciones()
+        {
+            AgregarArticuloAPublicacion(1, 1);
+            AgregarArticuloAPublicacion(1, 2);
+            AgregarArticuloAPublicacion(1, 3);
+            AgregarArticuloAPublicacion(1, 4);
+
+            AgregarArticuloAPublicacion(2, 8);
+            AgregarArticuloAPublicacion(2, 9);
+            AgregarArticuloAPublicacion(2, 38);
+            AgregarArticuloAPublicacion(2, 11);
+        }
+        public void AgregarArticuloAPublicacion(int idPubli, int idArt)
+        {
+            Articulo a = ObtenerArticulosPorId(idArt);
+            if (a == null) throw new Exception("El articulo no puede ser nulo");
+            Publicacion p = ObtenerPublicacionPorId(idPubli);
+            if (p == null) throw new Exception("La publicacion no puede ser nula");
+            p.RegistrarArticulo(a);
+        }
+
+        public void AgregarOfertaASubasta(int idSub, int idClie,double monto, DateTime fecha)
+        {
+            Subasta s = ObtenerSubastaPorId(idSub);
+            if (s == null) throw new Exception("La subasta no puede ser nula");
+            Oferta o = GenerarOferta(ObtenerClientePorId(idClie), monto);
+            OfertaSubasta ofe = new OfertaSubasta(o, fecha);
+            s.RegistrarOferta(ofe);
+        }
+        public Oferta GenerarOferta(Cliente c, double monto)
+        {
+            Oferta oferta = new Oferta(c, monto);
+            return oferta;
+        }
         public void AltaArticulo(Articulo articulo)
         {
             if (articulo == null) throw new Exception("El articulo no puede ser nulo");
@@ -128,16 +176,125 @@ namespace Dominio
             _listaUsuarios.Add(usuario);
         }
 
+        public void AltaPublicacion(Publicacion publi)
+        {
+            if (publi == null) throw new Exception("La publicacion no puede ser nula");
+            publi.Validar();
+            _listaPublicaciones.Add(publi);
+            
+        }
+
         public List<Articulo> ArticulosPorCategoria(string categoria)
         {
             List<Articulo> buscados = new List<Articulo>();
             foreach (Articulo a in _listaArticulos)
             {
-                if(a.Categoria.ToLower() == categoria.ToLower()) buscados.Add(a);
+                if (a.Categoria.ToLower() == categoria.ToLower()) buscados.Add(a);
             }
             return buscados;
 
         }
 
+        public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
+        {
+
+            Console.WriteLine($"Publicaciones entre {fechaInicio:dd/MM/yyyy} y {fechaFin:dd/MM/yyyy}:");
+            List<Publicacion> buscados = new List<Publicacion>();
+            foreach (Publicacion p in _listaPublicaciones)
+            {
+                if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin) buscados.Add(p);
+            }
+            return buscados;
+        }
+
+        public List<Publicacion> ListarPublicaciones()
+        {
+            List<Publicacion> buscados = new List<Publicacion>();
+            foreach (Publicacion p in _listaPublicaciones)
+            {
+                buscados.Add(p);
+            }
+            return buscados;
+        }
+        public Cliente ObtenerClientePorId(int id)
+        {
+            Cliente buscado = null;
+            int i = 0;
+
+            while (i < _listaUsuarios.Count && buscado == null)
+            {
+                // Intentamos convertir el usuario a Cliente usando 'as'
+                Cliente cliente = _listaUsuarios[i] as Cliente;
+
+                // Si la conversión fue exitosa (cliente no es null) y el ID coincide
+                if (cliente != null && cliente.Id == id)
+                {
+                    buscado = cliente;
+                }
+
+                i++;
+            }
+
+            return buscado;
+        }
+        public Administrador ObtenerAdministradorPorId(int id)
+        {
+            Administrador buscado = null;
+            int i = 0;
+
+            while (i < _listaUsuarios.Count && buscado == null)
+            {
+                // Intentamos convertir el usuario a Administrador usando 'as'
+                Administrador administrador = _listaUsuarios[i] as Administrador;
+
+                // Si la conversión fue exitosa (administrador no es null) y el ID coincide
+                if (administrador != null && administrador.Id == id)
+                {
+                    buscado = administrador;
+                }
+
+                i++;
+            }
+
+            return buscado;
+        }
+        public Publicacion ObtenerPublicacionPorId(int id)
+        {
+            Publicacion buscado = null;
+            int i = 0;
+            while (i < _listaPublicaciones.Count && buscado == null)
+            {
+                if (_listaPublicaciones[i].Id == id) buscado = _listaPublicaciones[i];
+                i++;
+            }
+            return buscado;
+        }
+        public Articulo ObtenerArticulosPorId(int id)
+        {
+            Articulo buscado = null;
+            int i = 0;
+            while (i < _listaArticulos.Count && buscado == null)
+            {
+                if (_listaArticulos[i].Id == id) buscado = _listaArticulos[i];
+                i++;
+            }
+            
+            return buscado;
+        }
+
+        public Subasta ObtenerSubastaPorId(int id)
+        {
+            Subasta buscado = null;
+            int i = 0;
+            while (i < _listaPublicaciones.Count && buscado == null)
+            {
+                Subasta sub = _listaPublicaciones[i] as Subasta;
+
+                if (_listaPublicaciones[i].Id == id) buscado = sub;
+                i++;
+            }
+
+            return buscado;
+        }
     }
 }
