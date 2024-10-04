@@ -39,6 +39,7 @@ namespace Dominio
         
         public Sistema()
         {
+            // precargas de Publicaciones, articulos a publicaciones y ofertas con chat gpt: https://chatgpt.com/share/67005140-8680-8000-a19b-bb11919a3ae5
             PrecargarArticulos();
             PrecargarUsuarios();
             PrecargarPublicaciones();
@@ -121,25 +122,117 @@ namespace Dominio
         
         private void PrecargarPublicaciones()
         {
+            //Ventas
+            // Ventas ABIERTAS
+            AltaPublicacion(new Venta(false, "Venta aleatoria 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 07), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta aleatoria 2", TipoEstado.ABIERTA, new DateTime(2024, 09, 27), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta aleatoria 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 01), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta aleatoria 4", TipoEstado.ABIERTA, new DateTime(2024, 09, 29), null, null, null));
 
-            AltaPublicacion(new Venta(true, "nombre", TipoEstado.ABIERTA, new DateTime(1920,10,02), null, null, null));
-            AltaPublicacion(new Subasta("Subasta1", TipoEstado.CERRADA, new DateTime(2024, 10, 02), _listaArticulos, ObtenerClientePorId(1), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 29)));
+            // Ventas CERRADAS
+            AltaPublicacion(new Venta(false, "Venta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerAdministradorPorId(1), new DateTime(2024, 09, 28)));
+            AltaPublicacion(new Venta(true, "Venta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 03)));
+            AltaPublicacion(new Venta(false, "Venta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 10, 02), ObtenerClientePorId(7), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 04)));
+
+            // Ventas CANCELADAS
+            AltaPublicacion(new Venta(true, "Venta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 26), ObtenerClientePorId(1), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 27)));
+            AltaPublicacion(new Venta(true, "Venta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 10, 01), ObtenerClientePorId(9), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 02)));
+            AltaPublicacion(new Venta(false, "Venta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 29)));
+
+
+            //Subastas
+            // Subastas ABIERTAS
+            AltaPublicacion(new Subasta("Subasta aleatoria 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 04), null, null, null));
+            AltaPublicacion(new Subasta("Subasta aleatoria 2", TipoEstado.ABIERTA, new DateTime(2024, 09, 30), null, null, null));
+            AltaPublicacion(new Subasta("Subasta aleatoria 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 01), null, null, null));
+            AltaPublicacion(new Subasta("Subasta aleatoria 4", TipoEstado.ABIERTA, new DateTime(2024, 09, 27), null, null, null));
+
+            // Subastas CERRADAS
+            AltaPublicacion(new Subasta("Subasta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 26), ObtenerClientePorId(4), ObtenerAdministradorPorId(1), new DateTime(2024, 09, 29)));
+            AltaPublicacion(new Subasta("Subasta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 29), ObtenerClientePorId(7), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 01)));
+            AltaPublicacion(new Subasta("Subasta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 09, 28), ObtenerClientePorId(2), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 02)));
+
+            // Subastas CANCELADAS
+            AltaPublicacion(new Subasta("Subasta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 27)));
+            AltaPublicacion(new Subasta("Subasta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 03)));
+            AltaPublicacion(new Subasta("Subasta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 29)));
+
         }
         private void PrecargarOfertasASubastas()
         {
-            AgregarOfertaASubasta(2, 1, 2000, new DateTime(2024, 10, 02));
+            // Ofertas para la subasta con ID 12
+            AgregarOfertaASubasta(12, 3, 1500, new DateTime(2024, 10, 03));
+            AgregarOfertaASubasta(12, 5, 2000, new DateTime(2024, 10, 04));
+            AgregarOfertaASubasta(12, 7, 2500, new DateTime(2024, 10, 05));
+
+            // Ofertas para la subasta con ID 18
+            AgregarOfertaASubasta(18, 11, 1200, new DateTime(2024, 10, 01));
+            AgregarOfertaASubasta(18, 4, 1800, new DateTime(2024, 10, 02));
+            AgregarOfertaASubasta(18, 9, 2200, new DateTime(2024, 10, 03));
         }
         private void PrecargarArticulosAPublicaciones()
         {
+            // Artículos para las ventas y subastas
             AgregarArticuloAPublicacion(1, 1);
             AgregarArticuloAPublicacion(1, 2);
-            AgregarArticuloAPublicacion(1, 3);
-            AgregarArticuloAPublicacion(1, 4);
 
-            AgregarArticuloAPublicacion(2, 8);
-            AgregarArticuloAPublicacion(2, 9);
-            AgregarArticuloAPublicacion(2, 38);
-            AgregarArticuloAPublicacion(2, 11);
+            AgregarArticuloAPublicacion(2, 3);
+            AgregarArticuloAPublicacion(2, 4);
+
+            AgregarArticuloAPublicacion(3, 5);
+            AgregarArticuloAPublicacion(3, 6);
+
+            AgregarArticuloAPublicacion(4, 7);
+            AgregarArticuloAPublicacion(4, 8);
+
+            AgregarArticuloAPublicacion(5, 9);
+            AgregarArticuloAPublicacion(5, 10);
+
+            AgregarArticuloAPublicacion(6, 11);
+            AgregarArticuloAPublicacion(6, 12);
+
+            AgregarArticuloAPublicacion(7, 13);
+            AgregarArticuloAPublicacion(7, 14);
+
+            AgregarArticuloAPublicacion(8, 15);
+            AgregarArticuloAPublicacion(8, 16);
+
+            AgregarArticuloAPublicacion(9, 17);
+            AgregarArticuloAPublicacion(9, 18);
+
+            AgregarArticuloAPublicacion(10, 19);
+            AgregarArticuloAPublicacion(10, 20);
+
+            AgregarArticuloAPublicacion(11, 21);
+            AgregarArticuloAPublicacion(11, 22);
+
+            AgregarArticuloAPublicacion(12, 23);
+            AgregarArticuloAPublicacion(12, 24);
+
+            AgregarArticuloAPublicacion(13, 25);
+            AgregarArticuloAPublicacion(13, 26);
+
+            AgregarArticuloAPublicacion(14, 27);
+            AgregarArticuloAPublicacion(14, 28);
+
+            AgregarArticuloAPublicacion(15, 29);
+            AgregarArticuloAPublicacion(15, 30);
+
+            AgregarArticuloAPublicacion(16, 31);
+            AgregarArticuloAPublicacion(16, 32);
+
+            AgregarArticuloAPublicacion(17, 33);
+            AgregarArticuloAPublicacion(17, 34);
+
+            AgregarArticuloAPublicacion(18, 35);
+            AgregarArticuloAPublicacion(18, 36);
+
+            AgregarArticuloAPublicacion(19, 37);
+            AgregarArticuloAPublicacion(19, 38);
+
+            AgregarArticuloAPublicacion(20, 39);
+            AgregarArticuloAPublicacion(20, 40);
+
         }
         public void AgregarArticuloAPublicacion(int idPubli, int idArt)
         {
@@ -154,14 +247,9 @@ namespace Dominio
         {
             Subasta s = ObtenerSubastaPorId(idSub);
             if (s == null) throw new Exception("La subasta no puede ser nula");
-            Oferta o = GenerarOferta(ObtenerClientePorId(idClie), monto);
+            Oferta o = new Oferta(ObtenerClientePorId(idClie), monto);
             OfertaSubasta ofe = new OfertaSubasta(o, fecha);
             s.RegistrarOferta(ofe);
-        }
-        public Oferta GenerarOferta(Cliente c, double monto)
-        {
-            Oferta oferta = new Oferta(c, monto);
-            return oferta;
         }
         public void AltaArticulo(Articulo articulo)
         {

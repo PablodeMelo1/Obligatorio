@@ -165,6 +165,7 @@ namespace consola
 
 
         #endregion
+
         #region METODOS ADICIONALES
 
         static string PedirPalabras(string mensaje)

@@ -11,7 +11,7 @@ namespace Dominio
     {
         private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
 
-        public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, List<Articulo> listaArticulos, Cliente? comprador, Administrador? usuarioCierre, DateTime? fechaCierre):base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
+        public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Administrador? usuarioCierre, DateTime? fechaCierre):base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
             
         }
