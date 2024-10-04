@@ -166,9 +166,9 @@ namespace Dominio
             AgregarOfertaASubasta(12, 7, 2500, new DateTime(2024, 10, 05));
 
             // Ofertas para la subasta con ID 18
-            AgregarOfertaASubasta(18, 11, 1200, new DateTime(2024, 10, 01));
-            AgregarOfertaASubasta(18, 4, 1800, new DateTime(2024, 10, 02));
-            AgregarOfertaASubasta(18, 9, 2200, new DateTime(2024, 10, 03));
+            AgregarOfertaASubasta(11, 11, 1200, new DateTime(2024, 10, 01));
+            AgregarOfertaASubasta(11, 4, 1800, new DateTime(2024, 10, 02));
+            AgregarOfertaASubasta(11, 9, 2200, new DateTime(2024, 10, 03));
         }
         private void PrecargarArticulosAPublicaciones()
         {
