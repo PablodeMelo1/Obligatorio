@@ -23,8 +23,8 @@ namespace Dominio
             else return "No";
         }
         public override string ToString()
-        {   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - nombre {_nombre} - estado {_estado}" +
-                $" - fecha {_fechaPublicacion} - comprador si tiene: {_comprador} - Admin cierre: {_usuarioCierre} fecha cierre: {_fechaCierre}";
+        {   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - Nombre: {_nombre} - Estado: {_estado}" +
+                $" - Fecha: {_fechaPublicacion} - Comprador? {_comprador} - Admin Ccierre: {_usuarioCierre} Fecha Cierre: {_fechaCierre}";
 
             if (_listaArticulos.Count == 0)
             {
@@ -38,7 +38,7 @@ namespace Dominio
             }
             return retorno;
                     
-        }
+        }         
 
         public void CambioDeColor(string mensaje, ConsoleColor color)
         {

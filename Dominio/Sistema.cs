@@ -46,6 +46,10 @@ namespace Dominio
             PrecargarArticulosAPublicaciones();
             PrecargarOfertasASubastas();
         }
+        
+
+        #region PRECARGAS 
+        
         // Precargados 50 articulos con la ayuda de ChatGPT
         private void PrecargarArticulos()
         {
@@ -99,7 +103,6 @@ namespace Dominio
             AltaArticulo(new Articulo("Cámara Instantánea", "Fotografia", 120.00));
             AltaArticulo(new Articulo("Trípode", "Fotografia", 79.99));
         }
-
         private void PrecargarUsuarios()
         {
 
@@ -117,9 +120,7 @@ namespace Dominio
             AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@gmail.com", "ruiz111", 22000.00));
             AltaUsuario(new Cliente("Joaquin", "Mendez", "joaquin.mendez@gmail.com", "joaquin222", 14000.00));
             AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333", 26000.00));
-
-        }
-        
+        }        
         private void PrecargarPublicaciones()
         {
             //Ventas
@@ -234,6 +235,9 @@ namespace Dominio
             AgregarArticuloAPublicacion(20, 40);
 
         }
+        #endregion
+
+        #region AGREGACIONES
         public void AgregarArticuloAPublicacion(int idPubli, int idArt)
         {
             Articulo a = ObtenerArticulosPorId(idArt);
@@ -243,7 +247,7 @@ namespace Dominio
             p.RegistrarArticulo(a);
         }
 
-        public void AgregarOfertaASubasta(int idSub, int idClie,double monto, DateTime fecha)
+        public void AgregarOfertaASubasta(int idSub, int idClie, double monto, DateTime fecha)
         {
             Subasta s = ObtenerSubastaPorId(idSub);
             if (s == null) throw new Exception("La subasta no puede ser nula");
@@ -251,6 +255,9 @@ namespace Dominio
             OfertaSubasta ofe = new OfertaSubasta(o, fecha);
             s.RegistrarOferta(ofe);
         }
+        #endregion
+
+        #region ALTAS
         public void AltaArticulo(Articulo articulo)
         {
             if (articulo == null) throw new Exception("El articulo no puede ser nulo");
@@ -268,9 +275,9 @@ namespace Dominio
         {
             if (publi == null) throw new Exception("La publicacion no puede ser nula");
             publi.Validar();
-            _listaPublicaciones.Add(publi);
-            
+            _listaPublicaciones.Add(publi);            
         }
+        #endregion
 
         public List<Articulo> ArticulosPorCategoria(string categoria)
         {
@@ -304,6 +311,8 @@ namespace Dominio
             }
             return buscados;
         }
+
+        #region OBTENER
         public Cliente ObtenerClientePorId(int id)
         {
             Cliente buscado = null;
@@ -385,4 +394,6 @@ namespace Dominio
             return buscado;
         }
     }
+
 }
+#endregion

@@ -19,19 +19,19 @@ namespace Dominio
         public Usuario(string nombre, string apellido, string email, string contrasena)
         {
             _id = s_ultId;
-             s_ultId++;
+            s_ultId++;
             _nombre = nombre;
             _apellido = apellido;
             _email = email;
             _contrasena = contrasena;
         }
 
+        //Agregué esta validacion
         public void Validar()
         {
-            if (string.IsNullOrEmpty(_nombre)) throw new Exception("El nombre no puede ser vacio");
-            if (string.IsNullOrEmpty(_nombre)) throw new Exception("El apellido no puede ser vacio");
-            if (string.IsNullOrEmpty(_email)) throw new Exception("El email no puede ser vacio");
-            if (string.IsNullOrEmpty(_email)) throw new Exception("La contraseña no puede ser vacia");
+            if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) || 
+                string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_contrasena)) 
+                throw new Exception("Los campos de nombre, apellido, contraseña y email son obligatorios.");            
         }
 
         public override string ToString()

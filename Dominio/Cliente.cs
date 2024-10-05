@@ -14,7 +14,7 @@ namespace Dominio
         public Cliente(string nombre, string apellido, string email, string contrasena, double saldo):base(nombre, apellido, email, contrasena)
         {
             _saldo = saldo;
-        }
+        }       
         public int Id
         {
             get { return _id; }
@@ -25,6 +25,17 @@ namespace Dominio
             {
                 return _saldo;
             }          
+        }
+        public void DescontarSaldo(double monto)
+        {
+            if (monto > _saldo)
+            {
+                throw new Exception("Saldo insuficiente.");
+            }
+            else
+            {
+                _saldo -= monto;
+            }
         }
 
         public override string ToString()

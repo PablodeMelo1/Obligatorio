@@ -137,6 +137,10 @@ namespace consola
         }
         static void ListarPublicacionesEntreFechas()
         {
+            Console.Clear();
+            CambioDeColor("LISTAR PUBLICACIONES ENTRE DOS FECHAS", ConsoleColor.Yellow);
+            Console.WriteLine();
+
             DateTime fechaInicio = PedirFecha("Ingrese la fecha de inicio");
             DateTime fechaFin = PedirFecha("Ingrese la fecha de fin");
 

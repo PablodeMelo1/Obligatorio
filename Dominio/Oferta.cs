@@ -36,6 +36,7 @@ namespace Dominio
         public void Validar()
         {
             if (_monto <= 0) throw new Exception("El monto debe ser mayor a cero");
+            if (_cliente == null) throw new Exception("El cliente no puede ser nulo");
             if (_cliente.Saldo < _monto) throw new Exception("No tiene suficiente saldo");
         }
 

@@ -52,8 +52,22 @@ namespace Dominio
         public void Validar()
         {
             if (string.IsNullOrEmpty(_nombre)) throw new Exception("El nombre no puede ser vacio");
+            if (_estado != TipoEstado.ABIERTA) throw new Exception("La publicación no se encuentra en estado ABIERTA.");
         }
-        //los listados de articulos de cada publicacion, se van a realizar en  sistema/Program.
+        
+        public void ValidarArticulosPublicacion()
+        {
+            if(_listaArticulos.Count == 0) throw new Exception("La publicación debe contener al menos un artículo.");
+        }
+
+        // Validación de tipo de publicación (venta o subasta)
+        //public void ValidarTipoDePublicacion(Usuario usuario)
+        //{
+        //    if (this is Venta && !(usuario is Cliente))
+        //        throw new Exception("Solo los clientes pueden comprar publicaciones de tipo Venta.");
+        //    if (this is Subasta && !(usuario is Cliente))
+        //        throw new Exception("Solo los clientes pueden realizar ofertas en una Subasta.");
+        //}
 
         public override string ToString()
         {

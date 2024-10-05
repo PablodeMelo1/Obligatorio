@@ -23,6 +23,10 @@ namespace Dominio
             _categoria = categoria;
             _precioVenta = precioVenta;
         }
+        public double PrecioVenta
+        {
+            get { return _precioVenta; }
+        }
         public int Id
         {
             get { return _id; }

@@ -18,12 +18,14 @@ namespace Dominio
             _fecha = fecha;
         }
 
-        public Oferta Ofertas {  
-            get 
-            { 
-                return _oferta; 
-            } 
+        public Oferta OfertasRealizadas
+        {
+            get
+            {
+                return _oferta;
+            }
         }
+
         public void Validar()
         {
             if (_oferta == null) throw new Exception("La oferta no puede ser nula");
