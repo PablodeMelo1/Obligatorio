@@ -39,7 +39,7 @@ namespace Dominio
         
         public Sistema()
         {
-            // precargas de Publicaciones, articulos a publicaciones y ofertas con chat gpt: https://chatgpt.com/share/67005140-8680-8000-a19b-bb11919a3ae5
+            // precargas de Publicaciones, articulos a publicaciones y ofertas con chat gpt: https://chatgpt.com/share/6703227e-3764-8000-ad6c-a2ce04af8b36
             PrecargarArticulos();
             PrecargarUsuarios();
             PrecargarPublicaciones();
@@ -124,52 +124,43 @@ namespace Dominio
         private void PrecargarPublicaciones()
         {
             //Ventas 
-            // Ventas ABIERTAS
-            AltaPublicacion(new Venta(false, "Venta aleatoria 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 07), null, null, null));
-            AltaPublicacion(new Venta(true, "Venta aleatoria 2", TipoEstado.ABIERTA, new DateTime(2024, 09, 27), null, null, null));
-            AltaPublicacion(new Venta(false, "Venta aleatoria 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 01), null, null, null));
-            AltaPublicacion(new Venta(true, "Venta aleatoria 4", TipoEstado.ABIERTA, new DateTime(2024, 09, 29), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerClientePorId(3), new DateTime(2024, 10, 5)));
+            AltaPublicacion(new Venta(false, "Venta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerClientePorId(7), new DateTime(2024, 10, 2)));
+            AltaPublicacion(new Venta(true, "Venta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerClientePorId(1), new DateTime(2024, 10, 10)));
+            AltaPublicacion(new Venta(false, "Venta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), ObtenerClientePorId(5), ObtenerClientePorId(5), new DateTime(2024, 9, 30)));
+            AltaPublicacion(new Venta(true, "Venta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), ObtenerClientePorId(2), ObtenerClientePorId(2), new DateTime(2024, 10, 9)));
+            AltaPublicacion(new Venta(false, "Venta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), ObtenerClientePorId(6), ObtenerClientePorId(6), new DateTime(2024, 10, 1)));
+            AltaPublicacion(new Venta(true, "Venta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), ObtenerClientePorId(4), ObtenerClientePorId(4), new DateTime(2024, 10, 8)));
+            AltaPublicacion(new Venta(false, "Venta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerClientePorId(9), new DateTime(2024, 10, 3)));
+            AltaPublicacion(new Venta(true, "Venta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerClientePorId(8), new DateTime(2024, 10, 6)));
+            AltaPublicacion(new Venta(false, "Venta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerClientePorId(10), new DateTime(2024, 10, 4)));
 
-            // Ventas CERRADAS
-            AltaPublicacion(new Venta(false, "Venta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerClientePorId(5), new DateTime(2024, 09, 28)));
-            AltaPublicacion(new Venta(true, "Venta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerClientePorId(3), new DateTime(2024, 10, 03)));
-            AltaPublicacion(new Venta(false, "Venta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 10, 02), ObtenerClientePorId(7), ObtenerClientePorId(7), new DateTime(2024, 10, 04)));
-
-            // Ventas CANCELADAS
-            AltaPublicacion(new Venta(true, "Venta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 26), ObtenerClientePorId(1), ObtenerClientePorId(1), new DateTime(2024, 09, 27)));
-            AltaPublicacion(new Venta(true, "Venta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 10, 01), ObtenerClientePorId(9), ObtenerClientePorId(9), new DateTime(2024, 10, 02)));
-            AltaPublicacion(new Venta(false, "Venta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerClientePorId(6), new DateTime(2024, 09, 29)));
 
 
             //Subastas
-            // Subastas ABIERTAS
-            AltaPublicacion(new Subasta("Subasta aleatoria 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 04), null, null, null));
-            AltaPublicacion(new Subasta("Subasta aleatoria 2", TipoEstado.ABIERTA, new DateTime(2024, 09, 30), null, null, null));
-            AltaPublicacion(new Subasta("Subasta aleatoria 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 01), null, null, null));
-            AltaPublicacion(new Subasta("Subasta aleatoria 4", TipoEstado.ABIERTA, new DateTime(2024, 09, 27), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 5)));
+            AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
+            AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 10)));
+            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), ObtenerClientePorId(5), ObtenerAdministradorPorId(2), new DateTime(2024, 9, 30)));
+            AltaPublicacion(new Subasta("Subasta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), ObtenerClientePorId(2), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 8)));
+            AltaPublicacion(new Subasta("Subasta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 2)));
+            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), ObtenerClientePorId(4), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 9)));
+            AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 4)));
+            AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 7)));
+            AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
 
-            // Subastas CERRADAS
-            AltaPublicacion(new Subasta("Subasta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 26), ObtenerClientePorId(4), ObtenerAdministradorPorId(1), new DateTime(2024, 09, 29)));
-            AltaPublicacion(new Subasta("Subasta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 29), ObtenerClientePorId(7), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 01)));
-            AltaPublicacion(new Subasta("Subasta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 09, 28), ObtenerClientePorId(2), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 02)));
-
-            // Subastas CANCELADAS
-            AltaPublicacion(new Subasta("Subasta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 27)));
-            AltaPublicacion(new Subasta("Subasta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 03)));
-            AltaPublicacion(new Subasta("Subasta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 29)));
 
         }
         private void PrecargarOfertasASubastas()
         {
-            // Ofertas para la subasta con ID 12
-            AgregarOfertaASubasta(12, 3, 1500, new DateTime(2024, 10, 03));
-            AgregarOfertaASubasta(12, 5, 2000, new DateTime(2024, 10, 04));
-            AgregarOfertaASubasta(12, 7, 2500, new DateTime(2024, 10, 05));
+            // Ofertas para la subasta 11
+            AgregarOfertaASubasta(11, 3, 1500, new DateTime(2024, 10, 01));
+            AgregarOfertaASubasta(11, 7, 2000, new DateTime(2024, 10, 02));
 
-            // Ofertas para la subasta con ID 18
-            AgregarOfertaASubasta(11, 11, 1200, new DateTime(2024, 10, 01));
-            AgregarOfertaASubasta(11, 4, 1800, new DateTime(2024, 10, 02));
-            AgregarOfertaASubasta(11, 9, 2200, new DateTime(2024, 10, 03));
+            // Ofertas para la subasta 12
+            AgregarOfertaASubasta(12, 5, 1800, new DateTime(2024, 10, 03));
+            AgregarOfertaASubasta(12, 2, 2500, new DateTime(2024, 10, 04));
+
         }
         private void PrecargarArticulosAPublicaciones()
         {
@@ -233,6 +224,7 @@ namespace Dominio
 
             AgregarArticuloAPublicacion(20, 39);
             AgregarArticuloAPublicacion(20, 40);
+
 
         }
         #endregion
