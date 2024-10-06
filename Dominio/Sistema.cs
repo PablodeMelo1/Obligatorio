@@ -123,7 +123,7 @@ namespace Dominio
         }        
         private void PrecargarPublicaciones()
         {
-            //Ventas
+            //Ventas 
             // Ventas ABIERTAS
             AltaPublicacion(new Venta(false, "Venta aleatoria 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 07), null, null, null));
             AltaPublicacion(new Venta(true, "Venta aleatoria 2", TipoEstado.ABIERTA, new DateTime(2024, 09, 27), null, null, null));

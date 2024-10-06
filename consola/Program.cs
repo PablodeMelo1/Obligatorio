@@ -145,9 +145,17 @@ namespace consola
             DateTime fechaFin = PedirFecha("Ingrese la fecha de fin");
 
             // Listar publicaciones entre las fechas dadas
-            foreach (Publicacion p in miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin))
+            List<Publicacion> listarPub = miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin);
+            if(listarPub.Count > 0) 
             {
-                Console.WriteLine(p);
+                    MostrarError($"No existen publicaciones entre las fechas {fechaInicio} y {fechaFin}");
+            }
+            else
+            {
+                foreach(Publicacion p in listarPub)
+                {
+                    Console.WriteLine(p);
+                }
             }
 
             PressToContinue();
