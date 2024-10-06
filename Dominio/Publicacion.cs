@@ -17,10 +17,10 @@ namespace Dominio
         protected DateTime _fechaPublicacion;
         protected List<Articulo> _listaArticulos = new List<Articulo>();
         protected Cliente? _comprador;
-        protected Administrador? _usuarioCierre;
+        protected Usuario _usuarioCierre; //modifique el usuario cierre colocando Usuario en vez de Administrador
         protected DateTime? _fechaCierre;
 
-        public Publicacion(string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Administrador? usuarioCierre, DateTime? fechaCierre)
+        public Publicacion(string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Usuario usuarioCierre, DateTime? fechaCierre)
         {
             _id = s_ultId;
             s_ultId++;

@@ -53,11 +53,11 @@ namespace Dominio
             return $"Articulo: {_nombre} - Categoria: {_categoria} - Precio de Venta: {_precioVenta}";
         }
 
-        //public override bool Equals(object? obj)
-        //{
-        //    Articulo a = obj as Articulo;
-        //    return a != null && this._nombre == a._nombre;
-        //}
+        public override bool Equals(object? obj)
+        {
+            Articulo a = obj as Articulo;
+            return a != null && this._id.Equals(a._id);
+        }
 
     }
 }

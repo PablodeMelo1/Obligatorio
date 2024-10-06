@@ -131,14 +131,14 @@ namespace Dominio
             AltaPublicacion(new Venta(true, "Venta aleatoria 4", TipoEstado.ABIERTA, new DateTime(2024, 09, 29), null, null, null));
 
             // Ventas CERRADAS
-            AltaPublicacion(new Venta(false, "Venta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerAdministradorPorId(1), new DateTime(2024, 09, 28)));
-            AltaPublicacion(new Venta(true, "Venta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 03)));
-            AltaPublicacion(new Venta(false, "Venta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 10, 02), ObtenerClientePorId(7), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 04)));
+            AltaPublicacion(new Venta(false, "Venta cerrada 1", TipoEstado.CERRADA, new DateTime(2024, 09, 24), ObtenerClientePorId(5), ObtenerClientePorId(5), new DateTime(2024, 09, 28)));
+            AltaPublicacion(new Venta(true, "Venta cerrada 2", TipoEstado.CERRADA, new DateTime(2024, 09, 30), ObtenerClientePorId(3), ObtenerClientePorId(3), new DateTime(2024, 10, 03)));
+            AltaPublicacion(new Venta(false, "Venta cerrada 3", TipoEstado.CERRADA, new DateTime(2024, 10, 02), ObtenerClientePorId(7), ObtenerClientePorId(7), new DateTime(2024, 10, 04)));
 
             // Ventas CANCELADAS
-            AltaPublicacion(new Venta(true, "Venta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 26), ObtenerClientePorId(1), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 27)));
-            AltaPublicacion(new Venta(true, "Venta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 10, 01), ObtenerClientePorId(9), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 02)));
-            AltaPublicacion(new Venta(false, "Venta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 09, 29)));
+            AltaPublicacion(new Venta(true, "Venta cancelada 1", TipoEstado.CANCELADA, new DateTime(2024, 09, 26), ObtenerClientePorId(1), ObtenerClientePorId(1), new DateTime(2024, 09, 27)));
+            AltaPublicacion(new Venta(true, "Venta cancelada 2", TipoEstado.CANCELADA, new DateTime(2024, 10, 01), ObtenerClientePorId(9), ObtenerClientePorId(9), new DateTime(2024, 10, 02)));
+            AltaPublicacion(new Venta(false, "Venta cancelada 3", TipoEstado.CANCELADA, new DateTime(2024, 09, 25), ObtenerClientePorId(6), ObtenerClientePorId(6), new DateTime(2024, 09, 29)));
 
 
             //Subastas
@@ -262,6 +262,7 @@ namespace Dominio
         {
             if (articulo == null) throw new Exception("El articulo no puede ser nulo");
             articulo.Validar();
+            if (_listaArticulos.Contains(articulo)) throw new Exception("El articulo ya existe."); //agregado con el metodo equals en Articulo
             _listaArticulos.Add(articulo);
         }
         public void AltaUsuario(Usuario usuario)

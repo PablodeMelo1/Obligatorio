@@ -9,7 +9,6 @@ namespace Dominio
 {
     public class Administrador : Usuario
     {
-        //Hola
         public Administrador(string nombre, string apellido, string email, string contrasena):base(nombre, apellido, email, contrasena)
         {
             
