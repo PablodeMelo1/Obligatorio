@@ -50,7 +50,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return $"Articulo: {_nombre} - Categoria: {_categoria} - Precio de Venta: {_precioVenta}";
+            return $"Articulo: {_nombre} - Categoria: {_categoria} - Precio: ${_precioVenta}";
         }
 
         public override bool Equals(object? obj)

@@ -19,20 +19,17 @@ namespace consola
                 switch (opcion)
                 {
                     case "1":
-                        CatalogoArticulos();
+                        ListadoClientes();
                         break;
                     case "2":
                         ListarArticulosPorNombreCategoria();
                         break;
                     case "3":
-                        AltaArticulo();
-                        break;
-                    case "4":
                         ListarPublicacionesEntreFechas();
                         break;
-                    //case "5":
-                    //    ListarPublicaciones();
-                    //    break;
+                    case "4":
+                        AltaArticulo();
+                        break;
                     case "0":
                         Console.WriteLine("Salir ...");
                         break;
@@ -49,17 +46,31 @@ namespace consola
         static void MostrarMenu()
         {
             Console.Clear();
-            CambioDeColor("***********************************************", ConsoleColor.Yellow);
-            CambioDeColor("                     MENU                      ", ConsoleColor.Yellow);
-            CambioDeColor("***********************************************", ConsoleColor.Yellow);
-            Console.WriteLine();
-            Console.WriteLine("1 - Catalogo de Articulos");
-            Console.WriteLine("2 - Listado de articulos por nombre de categoria");
-            Console.WriteLine("3 - Alta de Articulos");
-            Console.WriteLine("4 - Listar publicaciones por fecha");
-            Console.WriteLine("0 - Salir");
+            CambioDeColor("****************************************************", ConsoleColor.Yellow);
+            CambioDeColor("*                      MENU                        *", ConsoleColor.Yellow);
+            CambioDeColor("****************************************************", ConsoleColor.Yellow);
+            CambioDeColor("*                                                  *", ConsoleColor.Yellow);
+            CambioDeColor("* 1 - Listado de clientes                          *", ConsoleColor.Yellow);
+            CambioDeColor("* 2 - Listado de articulos por nombre de categoria *", ConsoleColor.Yellow);
+            CambioDeColor("* 3 - Listado de publicaciones por fecha           *", ConsoleColor.Yellow);
+            CambioDeColor("* 4 - Alta de Articulos                            *", ConsoleColor.Yellow);
+            CambioDeColor("* 0 - Salir                                        *", ConsoleColor.Yellow);
+            CambioDeColor("****************************************************", ConsoleColor.Yellow);
         }
 
+        static void ListadoClientes()
+        {
+            Console.Clear();
+            CambioDeColor("Listado de Clientes", ConsoleColor.Yellow);
+            Console.WriteLine();
+            int cont = 1;
+            foreach (Usuario u in miSistema.Usuario)
+            {
+                if (u is Cliente cliente) Console.WriteLine(u);// comprueba que Usuario u sea un Cliente y no Administrador y lo muestra en pantalla.
+
+            }
+            PressToContinue();
+        }
         static void CatalogoArticulos()
         {
             Console.Clear();
@@ -79,7 +90,8 @@ namespace consola
             Console.WriteLine();
 
             string pedirCategoria = PedirPalabras("Ingrese la categoria para buscar: ");
-            
+            Console.WriteLine();
+
             try
             { 
             List<Articulo> articulosBuscados = miSistema.ArticulosPorCategoria(pedirCategoria);
