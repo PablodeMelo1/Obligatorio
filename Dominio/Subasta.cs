@@ -113,36 +113,36 @@ namespace Dominio
         }
 
 
-        public override string ToString()
-        {
-            string retorno =   $"Nombre {_nombre} - Estado {_estado}" +
-                $" - Fecha {_fechaPublicacion} - Comprador? {_comprador} - Admin Cierre: {_usuarioCierre} - Fecha Cierre: {_fechaCierre}";
+        //public override string ToString()
+        //{
+        //    string retorno =   $"Nombre {_nombre} - Estado {_estado}" +
+        //        $" - Fecha {_fechaPublicacion} - Comprador? {_comprador} - Admin Cierre: {_usuarioCierre} - Fecha Cierre: {_fechaCierre}";
 
-            if (_listaArticulos.Count == 0)
-            {
-                retorno += $"\n NO TIENE ARTICULOS ASOCIADOS";
-            }
-            else
-            {
-                foreach (Articulo a in _listaArticulos)
-                {
-                    retorno += $"\n {a.ToString()}";
-                }
-            }
+        //    if (_listaArticulos.Count == 0)
+        //    {
+        //        retorno += $"\n NO TIENE ARTICULOS ASOCIADOS";
+        //    }
+        //    else
+        //    {
+        //        foreach (Articulo a in _listaArticulos)
+        //        {
+        //            retorno += $"\n {a.ToString()}";
+        //        }
+        //    }
 
-            if (_listaOferta.Count == 0)
-            {
-                retorno += $"\n NO TIENE OFERTAS";
-            }
-            else
-            {
-                foreach (OfertaSubasta o in _listaOferta)
-                {
-                    retorno += $"\n {o.ToString()}";
-                }
-            }
-            return retorno;
+        //    if (_listaOferta.Count == 0)
+        //    {
+        //        retorno += $"\n NO TIENE OFERTAS";
+        //    }
+        //    else
+        //    {
+        //        foreach (OfertaSubasta o in _listaOferta)
+        //        {
+        //            retorno += $"\n {o.ToString()}";
+        //        }
+        //    }
+        //    return retorno;
 
-        }
+        //}
     }
 }

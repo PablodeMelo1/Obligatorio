@@ -22,23 +22,23 @@ namespace Dominio
             if (_ofertaRelampago) return "Si";
             else return "No";
         }
-        public override string ToString()
-        {   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - Nombre: {_nombre} - Estado: {_estado}" +
-                $" - Fecha: {_fechaPublicacion} - Comprador? {_comprador} - Admin Ccierre: {_usuarioCierre} Fecha Cierre: {_fechaCierre}";
+        //public override string ToString()
+        //{   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - Nombre: {_nombre} - Estado: {_estado}" +
+        //        $" - Fecha: {_fechaPublicacion} - Comprador? {_comprador} - Admin Cierre: {_usuarioCierre} Fecha Cierre: {_fechaCierre}";
 
-            if (_listaArticulos.Count == 0)
-            {
-                retorno += $"\n NO TIENE ARTICULOS";
-            } else 
-            {
-                foreach (Articulo a in _listaArticulos)
-                {
-                    retorno += $"\n {a.ToString()}";
-                }
-            }
-            return retorno;
+        //    if (_listaArticulos.Count == 0)
+        //    {
+        //        retorno += $"\n NO TIENE ARTICULOS";
+        //    } else 
+        //    {
+        //        foreach (Articulo a in _listaArticulos)
+        //        {
+        //            retorno += $"\n {a.ToString()}";
+        //        }
+        //    }
+        //    return retorno;
                     
-        }         
+        //}         
 
         public void CambioDeColor(string mensaje, ConsoleColor color)
         {

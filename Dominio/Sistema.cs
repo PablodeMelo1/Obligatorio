@@ -293,15 +293,15 @@ namespace Dominio
             return buscados;
         }
 
-        public List<Publicacion> ListarPublicaciones()
-        {
-            List<Publicacion> buscados = new List<Publicacion>();
-            foreach (Publicacion p in _listaPublicaciones)
-            {
-                buscados.Add(p);
-            }
-            return buscados;
-        }
+        //public List<Publicacion> ListarPublicaciones()
+        //{
+        //    List<Publicacion> buscados = new List<Publicacion>();
+        //    foreach (Publicacion p in _listaPublicaciones)
+        //    {
+        //        buscados.Add(p);
+        //    }
+        //    return buscados;
+        //}
 
         #region OBTENER
         public Cliente ObtenerClientePorId(int id)

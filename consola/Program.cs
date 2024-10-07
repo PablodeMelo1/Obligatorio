@@ -30,9 +30,9 @@ namespace consola
                     case "4":
                         ListarPublicacionesEntreFechas();
                         break;
-                    case "5":
-                        ListarPublicaciones();
-                        break;
+                    //case "5":
+                    //    ListarPublicaciones();
+                    //    break;
                     case "0":
                         Console.WriteLine("Salir ...");
                         break;
@@ -141,18 +141,34 @@ namespace consola
             CambioDeColor("LISTAR PUBLICACIONES ENTRE DOS FECHAS", ConsoleColor.Yellow);
             Console.WriteLine();
 
-            DateTime fechaInicio = PedirFecha("Ingrese la fecha de inicio");
-            DateTime fechaFin = PedirFecha("Ingrese la fecha de fin");
+            DateTime fechaInicio;
+            DateTime fechaFin;
 
-            // Listar publicaciones entre las fechas dadas
-            List<Publicacion> listarPub = miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin);
-            if(listarPub.Count == 0) 
+            while (true)
             {
-                    MostrarError($"No existen publicaciones entre las fechas {fechaInicio} y {fechaFin}");
+                fechaInicio = PedirFecha("Ingrese la fecha de inicio");
+                fechaFin = PedirFecha("Ingrese la fecha de fin");
+
+                // Validar que la fecha de inicio no sea mayor que la fecha de fin
+                if (fechaInicio > fechaFin)
+                {
+                    MostrarError($"La fecha de inicio no puede ser mayor que la fecha de fin. Intente de nuevo.");
+                }
+                else
+                {
+                    break; // Salir del bucle si las fechas son válidas
+                }
+            }
+
+            List<Publicacion> listarPub = miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin);
+
+            if (listarPub.Count == 0)
+            {
+                MostrarError($"No existen publicaciones entre las fechas {fechaInicio} y {fechaFin}");
             }
             else
             {
-                foreach(Publicacion p in listarPub)
+                foreach (Publicacion p in listarPub)
                 {
                     Console.WriteLine(p);
                 }
@@ -161,19 +177,19 @@ namespace consola
             PressToContinue();
         }
 
-        static void ListarPublicaciones()
-        {
-            Console.Clear();
-            CambioDeColor("LISTA DE PUBLICACIONES", ConsoleColor.Yellow);
-            Console.WriteLine();
+        //static void ListarPublicaciones()
+        //{
+        //    Console.Clear();
+        //    CambioDeColor("LISTA DE PUBLICACIONES", ConsoleColor.Yellow);
+        //    Console.WriteLine();
 
-            foreach(Publicacion p in miSistema.ListarPublicaciones())
-            {
-                Console.WriteLine("\n" + p);
-            }
+        //    foreach(Publicacion p in miSistema.ListarPublicaciones())
+        //    {
+        //        Console.WriteLine("\n" + p);
+        //    }
 
-            PressToContinue();
-        }
+        //    PressToContinue();
+        //}
 
 
         #endregion

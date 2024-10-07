@@ -71,8 +71,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return $"nombre: {_nombre} estado: {_estado} - fecha: {_fechaPublicacion} - Comprador: {_comprador} - " +
-                $"usuarioCierre {_usuarioCierre} fecha cierre: {_fechaCierre}";
+            return $"ID: {_id} Estado: {_estado} - Fecha de Publicación: {_fechaPublicacion}";         
 
         }
 
