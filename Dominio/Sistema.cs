@@ -120,10 +120,10 @@ namespace Dominio
             AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@gmail.com", "ruiz111", 22000.00));
             AltaUsuario(new Cliente("Joaquin", "Mendez", "joaquin.mendez@gmail.com", "joaquin222", 14000.00));
             AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333", 26000.00));
-        }        
+        }
         private void PrecargarPublicaciones()
         {
-            //Ventas 
+            /*
             AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerClientePorId(3), new DateTime(2024, 10, 5)));
             AltaPublicacion(new Venta(false, "Venta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerClientePorId(7), new DateTime(2024, 10, 2)));
             AltaPublicacion(new Venta(true, "Venta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerClientePorId(1), new DateTime(2024, 10, 10)));
@@ -134,10 +134,6 @@ namespace Dominio
             AltaPublicacion(new Venta(false, "Venta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerClientePorId(9), new DateTime(2024, 10, 3)));
             AltaPublicacion(new Venta(true, "Venta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerClientePorId(8), new DateTime(2024, 10, 6)));
             AltaPublicacion(new Venta(false, "Venta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerClientePorId(10), new DateTime(2024, 10, 4)));
-
-
-
-            //Subastas
             AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 5)));
             AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
             AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 10)));
@@ -148,7 +144,31 @@ namespace Dominio
             AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 4)));
             AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 7)));
             AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
+            */
 
+            //Ventas 
+            AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), null, null, null));
+            AltaPublicacion(new Venta(true, "Venta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), null, null, null));
+            AltaPublicacion(new Venta(false, "Venta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), null, null, null));
+
+            //Subastas
+            AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), null, null, null));
 
         }
         private void PrecargarOfertasASubastas()
