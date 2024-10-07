@@ -146,7 +146,7 @@ namespace consola
 
             // Listar publicaciones entre las fechas dadas
             List<Publicacion> listarPub = miSistema.ListarPublicacionesEntreFechas(fechaInicio, fechaFin);
-            if(listarPub.Count > 0) 
+            if(listarPub.Count == 0) 
             {
                     MostrarError($"No existen publicaciones entre las fechas {fechaInicio} y {fechaFin}");
             }

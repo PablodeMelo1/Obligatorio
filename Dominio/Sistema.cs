@@ -284,9 +284,7 @@ namespace Dominio
         }
 
         public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
-        {
-
-            Console.WriteLine($"Publicaciones entre {fechaInicio:dd/MM/yyyy} y {fechaFin:dd/MM/yyyy}:");
+        {                        
             List<Publicacion> buscados = new List<Publicacion>();
             foreach (Publicacion p in _listaPublicaciones)
             {
