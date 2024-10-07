@@ -60,18 +60,10 @@ namespace Dominio
             if(_listaArticulos.Count == 0) throw new Exception("La publicación debe contener al menos un artículo.");
         }
 
-        // Validación de tipo de publicación (venta o subasta)
-        //public void ValidarTipoDePublicacion(Usuario usuario)
-        //{
-        //    if (this is Venta && !(usuario is Cliente))
-        //        throw new Exception("Solo los clientes pueden comprar publicaciones de tipo Venta.");
-        //    if (this is Subasta && !(usuario is Cliente))
-        //        throw new Exception("Solo los clientes pueden realizar ofertas en una Subasta.");
-        //}
 
         public override string ToString()
-        {
-            return $"ID: {_id} Estado: {_estado} - Fecha de Publicación: {_fechaPublicacion}";         
+        { 
+            return $"ID: {_id} - Nombre: {_nombre} - Estado: {_estado} - Fecha de Publicación: {_fechaPublicacion}";         
 
         }
 
