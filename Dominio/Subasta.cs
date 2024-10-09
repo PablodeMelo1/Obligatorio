@@ -16,13 +16,12 @@ namespace Dominio
             
         }
 
-        public void Validar()        {
-            
+        public void Validar(){
             ValidarSaldo();
             ValidarEstado();
             ValidarOfertasValidas();
         }
-
+        #region Metodos que no son requeridos para la primer entrega. (Cerrar subasta y distintas validaciones)
         public void ValidarSaldo()
         {
             foreach (OfertaSubasta of in _listaOferta)
@@ -34,7 +33,7 @@ namespace Dominio
                 of.OfertasRealizadas.Cliente.DescontarSaldo(of.OfertasRealizadas.Monto);
             }
         }
-        //Validacion agregada
+
         public void ValidarOfertasValidas()
         {
             // Validar que la lista de ofertas no esté vacía
@@ -56,16 +55,16 @@ namespace Dominio
                 {
                     throw new Exception("La oferta debe tener un monto positivo.");
                 }
-                
+
             }
         }
-        //Validacion agregada
+
         public void ValidarEstado()
         {
             if (_estado != TipoEstado.ABIERTA) throw new Exception("La subasta no está en estado ABIERTA.");
         }
-        //Validacion agregada
-        public void CerrarSubasta()
+
+        public void Cerrar()
         {
             ValidarEstado(); // Verificar que la subasta esté ABIERTA.
 
@@ -96,53 +95,27 @@ namespace Dominio
                 throw new Exception("Ningún oferente tiene saldo suficiente para adjudicarse la subasta.");
             }
         }
-        //Validacion agregada
+
         public void FinalizarSubasta(Administrador admin)
         {
             if (admin == null) throw new Exception("Solo un administrador puede cerrar la subasta.");
 
-            CerrarSubasta(); // Cierra la subasta si las condiciones son correctas.
+            Cerrar(); // Cierra la subasta si las condiciones son correctas.
         }
-
+        #endregion
 
         public void RegistrarOferta(OfertaSubasta ofe)
         {
+            double ultMonto = 0;
+            if (_listaOferta.Count > 0)
+            {
+                ultMonto = _listaOferta[(_listaOferta.Count - 1)].OfertasRealizadas.Monto;
+            }
             if (ofe == null) throw new Exception("La oferta no puede ser nula");
+            if (ofe.OfertasRealizadas.Monto < ultMonto) throw new Exception("La oferta no puede ser menor a la oferta anterior");
             ofe.Validar();
             _listaOferta.Add(ofe);
         }
 
-
-        //public override string ToString()
-        //{
-        //    string retorno =   $"Nombre {_nombre} - Estado {_estado}" +
-        //        $" - Fecha {_fechaPublicacion} - Comprador? {_comprador} - Admin Cierre: {_usuarioCierre} - Fecha Cierre: {_fechaCierre}";
-
-        //    if (_listaArticulos.Count == 0)
-        //    {
-        //        retorno += $"\n NO TIENE ARTICULOS ASOCIADOS";
-        //    }
-        //    else
-        //    {
-        //        foreach (Articulo a in _listaArticulos)
-        //        {
-        //            retorno += $"\n {a.ToString()}";
-        //        }
-        //    }
-
-        //    if (_listaOferta.Count == 0)
-        //    {
-        //        retorno += $"\n NO TIENE OFERTAS";
-        //    }
-        //    else
-        //    {
-        //        foreach (OfertaSubasta o in _listaOferta)
-        //        {
-        //            retorno += $"\n {o.ToString()}";
-        //        }
-        //    }
-        //    return retorno;
-
-        //}
     }
 }

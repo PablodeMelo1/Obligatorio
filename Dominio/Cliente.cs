@@ -26,7 +26,7 @@ namespace Dominio
                 return _saldo;
             }          
         }
-        public void DescontarSaldo(double monto)
+        public void DescontarSaldo(double monto) // metodo no requerido para la primer entrega.
         {
             if (monto > _saldo)
             {
@@ -36,7 +36,7 @@ namespace Dominio
             {
                 _saldo -= monto;
             }
-        }
+        } 
 
         public override string ToString()
         {

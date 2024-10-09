@@ -11,7 +11,7 @@ namespace Dominio
     public class Venta : Publicacion
     {
         private bool _ofertaRelampago;
-        //modifique el usuario cierre y le puse el objeto Cliente
+       
         public Venta(bool ofertaRelampago, string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Cliente? usuarioCierre, DateTime? fechaCierre) :base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
             _ofertaRelampago = ofertaRelampago;
@@ -40,12 +40,6 @@ namespace Dominio
                     
         //}         
 
-        public void CambioDeColor(string mensaje, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(mensaje);
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
 
 
     }
