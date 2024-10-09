@@ -26,7 +26,6 @@ namespace Dominio
             _contrasena = contrasena;
         }
 
-        //Agregué esta validacion
         public void Validar()
         {
             if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) || 

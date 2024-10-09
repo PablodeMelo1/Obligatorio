@@ -123,9 +123,7 @@ namespace Dominio
         }
         private void PrecargarPublicaciones()
         {
-
-
-            //Ventas 
+            //Ventas
             AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
             AltaPublicacion(new Venta(false, "Venta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), null, null, null));
             AltaPublicacion(new Venta(true, "Venta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), null, null, null));
@@ -231,11 +229,11 @@ namespace Dominio
         #region AGREGACIONES
         public void AgregarArticuloAPublicacion(int idPubli, int idArt) //Agregamos un articulo a la lista de articulos de una publicacion
         {
-            Articulo a = ObtenerArticulosPorId(idArt);
+            Articulo a = ObtenerArticulosPorId(idArt); //buscamos el articulo y vaidamos
             if (a == null) throw new Exception("El articulo no puede ser nulo");
-            Publicacion p = ObtenerPublicacionPorId(idPubli);
+            Publicacion p = ObtenerPublicacionPorId(idPubli); //buscamos la publicacion y la validamos
             if (p == null) throw new Exception("La publicacion no puede ser nula");
-            p.RegistrarArticulo(a);
+            p.RegistrarArticulo(a);//Añadimos el articulo a la publicacion
         }
 
         public void AgregarOfertaASubasta(int idSub, int idClie, double monto, DateTime fecha)
