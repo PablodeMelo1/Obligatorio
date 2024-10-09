@@ -42,5 +42,11 @@ namespace Dominio
         {
             return $"id: {_id} - Nombre: {_nombre} {_apellido} - saldo: {_saldo}";
         }
+
+        public override bool Equals(object? obj)
+        {
+            Cliente c = obj as Cliente;
+            return c != null && this._id.Equals(c._id);
+        }
     }
 }

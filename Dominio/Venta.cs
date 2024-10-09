@@ -17,28 +17,11 @@ namespace Dominio
             _ofertaRelampago = ofertaRelampago;
         }
 
-        public string TieneOfertaRelampago()
+        public string TieneOfertaRelampago() //retornar si la venta tien oferta relampago
         {
             if (_ofertaRelampago) return "Si";
             else return "No";
-        }
-        //public override string ToString()
-        //{   string retorno = $"Tiene oferta relampago? {TieneOfertaRelampago()} - Nombre: {_nombre} - Estado: {_estado}" +
-        //        $" - Fecha: {_fechaPublicacion} - Comprador? {_comprador} - Admin Cierre: {_usuarioCierre} Fecha Cierre: {_fechaCierre}";
-
-        //    if (_listaArticulos.Count == 0)
-        //    {
-        //        retorno += $"\n NO TIENE ARTICULOS";
-        //    } else 
-        //    {
-        //        foreach (Articulo a in _listaArticulos)
-        //        {
-        //            retorno += $"\n {a.ToString()}";
-        //        }
-        //    }
-        //    return retorno;
-                    
-        //}         
+        }    
 
 
 

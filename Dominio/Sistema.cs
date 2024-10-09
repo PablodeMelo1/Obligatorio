@@ -123,28 +123,7 @@ namespace Dominio
         }
         private void PrecargarPublicaciones()
         {
-            /*
-            AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerClientePorId(3), new DateTime(2024, 10, 5)));
-            AltaPublicacion(new Venta(false, "Venta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerClientePorId(7), new DateTime(2024, 10, 2)));
-            AltaPublicacion(new Venta(true, "Venta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerClientePorId(1), new DateTime(2024, 10, 10)));
-            AltaPublicacion(new Venta(false, "Venta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), ObtenerClientePorId(5), ObtenerClientePorId(5), new DateTime(2024, 9, 30)));
-            AltaPublicacion(new Venta(true, "Venta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), ObtenerClientePorId(2), ObtenerClientePorId(2), new DateTime(2024, 10, 9)));
-            AltaPublicacion(new Venta(false, "Venta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), ObtenerClientePorId(6), ObtenerClientePorId(6), new DateTime(2024, 10, 1)));
-            AltaPublicacion(new Venta(true, "Venta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), ObtenerClientePorId(4), ObtenerClientePorId(4), new DateTime(2024, 10, 8)));
-            AltaPublicacion(new Venta(false, "Venta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerClientePorId(9), new DateTime(2024, 10, 3)));
-            AltaPublicacion(new Venta(true, "Venta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerClientePorId(8), new DateTime(2024, 10, 6)));
-            AltaPublicacion(new Venta(false, "Venta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerClientePorId(10), new DateTime(2024, 10, 4)));
-            AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), ObtenerClientePorId(3), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 5)));
-            AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), ObtenerClientePorId(7), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
-            AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), ObtenerClientePorId(1), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 10)));
-            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.ABIERTA, new DateTime(2024, 9, 25), ObtenerClientePorId(5), ObtenerAdministradorPorId(2), new DateTime(2024, 9, 30)));
-            AltaPublicacion(new Subasta("Subasta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), ObtenerClientePorId(2), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 8)));
-            AltaPublicacion(new Subasta("Subasta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 27), ObtenerClientePorId(6), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 2)));
-            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), ObtenerClientePorId(4), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 9)));
-            AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), ObtenerClientePorId(9), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 4)));
-            AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 2), ObtenerClientePorId(8), ObtenerAdministradorPorId(1), new DateTime(2024, 10, 7)));
-            AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), ObtenerClientePorId(10), ObtenerAdministradorPorId(2), new DateTime(2024, 10, 3)));
-            */
+
 
             //Ventas 
             AltaPublicacion(new Venta(true, "Venta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
@@ -179,7 +158,7 @@ namespace Dominio
 
             // Ofertas para la subasta 12
             AgregarOfertaASubasta(12, 5, 1800, new DateTime(2024, 10, 03));
-            AgregarOfertaASubasta(12, 2, 2500, new DateTime(2024, 10, 04));
+            AgregarOfertaASubasta(12, 3, 2500, new DateTime(2024, 10, 04));
 
         }
         private void PrecargarArticulosAPublicaciones()
@@ -250,7 +229,7 @@ namespace Dominio
         #endregion
 
         #region AGREGACIONES
-        public void AgregarArticuloAPublicacion(int idPubli, int idArt)
+        public void AgregarArticuloAPublicacion(int idPubli, int idArt) //Agregamos un articulo a la lista de articulos de una publicacion
         {
             Articulo a = ObtenerArticulosPorId(idArt);
             if (a == null) throw new Exception("El articulo no puede ser nulo");
@@ -261,10 +240,11 @@ namespace Dominio
 
         public void AgregarOfertaASubasta(int idSub, int idClie, double monto, DateTime fecha)
         {
-            Subasta s = ObtenerSubastaPorId(idSub);
+            //Agregamos una oferta a una subasta, validando si el cliente nunca
+            //realizo una oferta en esa subasta y si el monto ofertado es superior al ultimo.
+            Subasta s = ObtenerSubastaPorId(idSub); 
             if (s == null) throw new Exception("La subasta no puede ser nula");
-            Oferta o = new Oferta(ObtenerClientePorId(idClie), monto);
-            OfertaSubasta ofe = new OfertaSubasta(o, fecha);
+            OfertaSubasta ofe = new OfertaSubasta(fecha, ObtenerClientePorId(idClie), monto);
             s.RegistrarOferta(ofe);
         }
         #endregion
@@ -297,17 +277,19 @@ namespace Dominio
             List<Articulo> buscados = new List<Articulo>();
             foreach (Articulo a in _listaArticulos)
             {
-                if (a.Categoria.ToLower() == categoria.ToLower()) buscados.Add(a);
+                // Pasamos los dos strings a minusculas y los comparamos. si son iguales lo agregamos a los buscados
+                if (a.Categoria.ToLower() == categoria.ToLower()) buscados.Add(a); 
             }
             return buscados;
 
         }
 
         public List<Publicacion> ListarPublicacionesEntreFechas(DateTime fechaInicio, DateTime fechaFin)
-        {                        
+        {
             List<Publicacion> buscados = new List<Publicacion>();
             foreach (Publicacion p in _listaPublicaciones)
             {
+                //comprobamos que la fecha de publicacion de una publicacion este dentro de las dos fechas solicitadas.
                 if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin) buscados.Add(p);
             }
             return buscados;

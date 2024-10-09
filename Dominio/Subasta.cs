@@ -15,8 +15,11 @@ namespace Dominio
         {
             
         }
-
-        public void Validar(){
+        public List<OfertaSubasta> Ofertas
+        {
+            get { return _listaOferta; }
+        }
+        public override void Validar(){
             ValidarSaldo();
             ValidarEstado();
             ValidarOfertasValidas();
@@ -26,22 +29,16 @@ namespace Dominio
         {
             foreach (OfertaSubasta of in _listaOferta)
             {
-                if (of.OfertasRealizadas.Cliente.Saldo < of.OfertasRealizadas.Monto)
-                    throw new Exception($"El Cliente {of.OfertasRealizadas.Cliente.Id} no tiene saldo suficiente para cubrir la oferta.");
+                if (of.Cliente.Saldo < of.Monto)
+                    throw new Exception($"El Cliente {of.Cliente.Id} no tiene saldo suficiente para cubrir la oferta.");
 
                 // Descontar el saldo si es suficiente
-                of.OfertasRealizadas.Cliente.DescontarSaldo(of.OfertasRealizadas.Monto);
+                of.Cliente.DescontarSaldo(of.Monto);
             }
         }
 
         public void ValidarOfertasValidas()
         {
-            // Validar que la lista de ofertas no esté vacía
-            if (_listaOferta.Count == 0)
-            {
-                throw new Exception("La subasta debe tener al menos una oferta.");
-            }
-
             foreach (OfertaSubasta of in _listaOferta)
             {
                 // Validar que la oferta no sea nula
@@ -51,7 +48,7 @@ namespace Dominio
                 }
 
                 // Validar que el monto de la oferta sea positivo
-                if (of.OfertasRealizadas.Monto <= 0)
+                if (of.Monto <= 0)
                 {
                     throw new Exception("La oferta debe tener un monto positivo.");
                 }
@@ -73,9 +70,9 @@ namespace Dominio
             // Recorrer la lista de ofertas para encontrar la mejor oferta con saldo suficiente
             foreach (OfertaSubasta of in _listaOferta)
             {
-                if (of.OfertasRealizadas.Cliente.Saldo >= of.OfertasRealizadas.Monto)
+                if (of.Cliente.Saldo >= of.Monto)
                 {
-                    if (mejorOferta == null || of.OfertasRealizadas.Monto > mejorOferta.OfertasRealizadas.Monto)
+                    if (mejorOferta == null || of.Monto > mejorOferta.Monto)
                     {
                         mejorOferta = of;
                     }
@@ -85,8 +82,8 @@ namespace Dominio
             // Validar si hay una oferta válida con saldo suficiente
             if (mejorOferta != null)
             {
-                mejorOferta.OfertasRealizadas.Cliente.DescontarSaldo(mejorOferta.OfertasRealizadas.Monto);
-                _comprador = mejorOferta.OfertasRealizadas.Cliente;
+                mejorOferta.Cliente.DescontarSaldo(mejorOferta.Monto);
+                _comprador = mejorOferta.Cliente;
                 _estado = TipoEstado.CERRADA;
                 _fechaCierre = DateTime.Now;
             }
@@ -106,13 +103,17 @@ namespace Dominio
 
         public void RegistrarOferta(OfertaSubasta ofe)
         {
-            double ultMonto = 0;
-            if (_listaOferta.Count > 0)
+
+            foreach (OfertaSubasta o in _listaOferta) //comprobamos que un cliente realize unicamente una oferta
             {
-                ultMonto = _listaOferta[(_listaOferta.Count - 1)].OfertasRealizadas.Monto;
+                if (o.Cliente.Equals(ofe.Cliente)) throw new Exception("El cliente ya realizo una oferta en esta publicacion.");
             }
+
+            //comprobamos que un cliente realize una oferta con el monto mas alto al anterior
+            double ultMonto = 0; 
+            if (_listaOferta.Count > 0) ultMonto = _listaOferta[(_listaOferta.Count - 1)].Monto;
             if (ofe == null) throw new Exception("La oferta no puede ser nula");
-            if (ofe.OfertasRealizadas.Monto < ultMonto) throw new Exception("La oferta no puede ser menor a la oferta anterior");
+            if (ofe.Monto < ultMonto) throw new Exception("La oferta no puede ser menor a la oferta anterior");
             ofe.Validar();
             _listaOferta.Add(ofe);
         }

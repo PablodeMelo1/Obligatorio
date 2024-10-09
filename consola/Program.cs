@@ -189,20 +189,6 @@ namespace consola
             PressToContinue();
         }
 
-        //static void ListarPublicaciones()
-        //{
-        //    Console.Clear();
-        //    CambioDeColor("LISTA DE PUBLICACIONES", ConsoleColor.Yellow);
-        //    Console.WriteLine();
-
-        //    foreach(Publicacion p in miSistema.ListarPublicaciones())
-        //    {
-        //        Console.WriteLine("\n" + p);
-        //    }
-
-        //    PressToContinue();
-        //}
-
 
         #endregion
 
@@ -227,12 +213,12 @@ namespace consola
 
             while (!exito)
             {
-                Console.Write($"{mensaje} [dd/MM/yyyy]:");
+                Console.Write($"{mensaje} [MM/dd/yyyy]:");
                 exito = DateTime.TryParse(Console.ReadLine(), out fecha);
 
                 if (!exito)
                 {
-                    MostrarError("ERROR: La fecha no respeta el formato dd/MM/yyyy");
+                    MostrarError("ERROR: La fecha no respeta el formato MM/dd/yyyy");
                 }
             }
 

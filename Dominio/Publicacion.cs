@@ -49,7 +49,7 @@ namespace Dominio
             get { return _nombre; }
         }
 
-        public void Validar()
+        public virtual void Validar()
         {
             if (string.IsNullOrEmpty(_nombre)) throw new Exception("El nombre no puede ser vacio");
             if (_estado != TipoEstado.ABIERTA) throw new Exception("La publicación no se encuentra en estado ABIERTA.");
