@@ -294,6 +294,21 @@ namespace Dominio
             return buscados;
         }
 
+        public List<Cliente> ListarClientes()
+        {
+            List<Cliente> buscados = new List<Cliente>();
+            foreach (Usuario u in _listaUsuarios)
+            {
+                // comprueba que Usuario u sea un Cliente y no Administrador y lo agrega a la lista.
+                if (u is Cliente cliente)
+                {
+                    buscados.Add(u as Cliente);
+                }
+
+            }
+            return buscados;
+        }
+
 
         #region OBTENER POR ID
         public Cliente ObtenerClientePorId(int id)

@@ -63,26 +63,24 @@ namespace consola
             Console.Clear();
             CambioDeColor("Listado de Clientes", ConsoleColor.Yellow);
             Console.WriteLine();
-            int cont = 1;
-            foreach (Usuario u in miSistema.Usuario)
-            {
-                if (u is Cliente cliente) Console.WriteLine(u);// comprueba que Usuario u sea un Cliente y no Administrador y lo muestra en pantalla.
+            List<Cliente> listarClie = miSistema.ListarClientes();
 
+            if (listarClie.Count == 0)
+            {
+                MostrarError($"No hay clientes registrados en el sistema");
             }
+            else
+            {
+                foreach (Cliente c in listarClie)
+                {
+                    Console.WriteLine(c);
+
+                }
+            }
+            
             PressToContinue();
         }
-        static void CatalogoArticulos()
-        {
-            Console.Clear();
-            CambioDeColor("Catalogo de Articulos", ConsoleColor.Yellow);
-            Console.WriteLine();
 
-            foreach (Articulo a in miSistema.Articulos)
-            {
-                Console.WriteLine(a);
-            }
-            PressToContinue();
-        }
         static void ListarArticulosPorNombreCategoria()
         {
             Console.Clear();

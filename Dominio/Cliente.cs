@@ -40,7 +40,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return $"id: {_id} - Nombre: {_nombre} {_apellido} - saldo: {_saldo}";
+            return $"id: {_id} - Nombre: {_nombre} {_apellido} - Email: {_email} -  saldo: ${_saldo}";
         }
 
         public override bool Equals(object? obj)
