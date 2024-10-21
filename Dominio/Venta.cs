@@ -21,9 +21,53 @@ namespace Dominio
         {
             if (_ofertaRelampago) return "Si";
             else return "No";
-        }    
+        }
 
+        public override void FinalizarPublicacion(Usuario usuario)
+        {
+            if (usuario is Cliente c && c.Equals(_comprador))
+            {
+                // Verificar saldo disponible
+                if (c.Saldo >= CalcularPrecioFinal())
+                {
+                    c.DescontarSaldo(CalcularPrecioFinal());
+                    _estado = TipoEstado.CERRADA;
+                    _usuarioCierre = usuario;
+                    _fechaCierre = DateTime.Now;
+                }
+                else
+                {
+                    throw new Exception("Saldo insuficiente para completar la compra.");
+                }
+            }
+            else
+            {
+                throw new Exception("Solo el comprador puede finalizar esta venta.");
+            }
+        }
+
+        private double CalcularPrecioFinal()
+        {
+            double precioTotal = 0;
+
+            // Sumar los precios de los artículos manualmente
+            foreach (var articulo in _listaArticulos)
+            {
+                precioTotal += articulo.PrecioVenta;
+            }
+
+            // Aplicar descuento del 20% si hay una oferta relámpago
+            if (_ofertaRelampago)
+            {
+                precioTotal *= 0.8;
+            }
+
+            return precioTotal;
+        }
 
 
     }
+
+
+
 }

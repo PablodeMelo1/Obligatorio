@@ -309,6 +309,11 @@ namespace Dominio
             return buscados;
         }
 
+        public void FinalizarPublicacion(Publicacion publicacion, Usuario usuario)
+        {
+            publicacion.FinalizarPublicacion(usuario);
+        }
+
 
         #region OBTENER POR ID
         public Cliente ObtenerClientePorId(int id)

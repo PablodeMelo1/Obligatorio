@@ -16,11 +16,11 @@ namespace Dominio
         protected TipoEstado _estado;
         protected DateTime _fechaPublicacion;
         protected List<Articulo> _listaArticulos = new List<Articulo>();
-        protected Cliente? _comprador;
-        protected Usuario _usuarioCierre; //modifique el usuario cierre colocando Usuario en vez de Administrador
+        protected Usuario _comprador;
+        protected Usuario _usuarioCierre; 
         protected DateTime? _fechaCierre;
 
-        public Publicacion(string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Usuario usuarioCierre, DateTime? fechaCierre)
+        public Publicacion(string nombre, TipoEstado estado, DateTime fechaPublicacion, Usuario comprador, Usuario usuarioCierre, DateTime? fechaCierre)
         {
             _id = s_ultId;
             s_ultId++;
@@ -30,7 +30,10 @@ namespace Dominio
             _comprador = comprador;
             _usuarioCierre = usuarioCierre;
             _fechaCierre = fechaCierre;
+
         }
+
+        public abstract void FinalizarPublicacion(Usuario usuario);
 
         public TipoEstado Estado
         {
@@ -53,12 +56,7 @@ namespace Dominio
         {
             if (string.IsNullOrEmpty(_nombre)) throw new Exception("El nombre no puede ser vacio");
             if (_estado != TipoEstado.ABIERTA) throw new Exception("La publicación no se encuentra en estado ABIERTA.");
-        }
-        
-        public void ValidarArticulosPublicacion()
-        {
-            if(_listaArticulos.Count == 0) throw new Exception("La publicación debe contener al menos un artículo.");
-        }
+        } 
 
 
         public override string ToString()
@@ -73,6 +71,8 @@ namespace Dominio
             a.Validar();
             _listaArticulos.Add(a);
         }
+
+
 
     }
 }
