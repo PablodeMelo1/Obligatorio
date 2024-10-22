@@ -51,7 +51,7 @@ namespace Dominio
             double precioTotal = 0;
 
             // Sumar los precios de los artículos manualmente
-            foreach (var articulo in _listaArticulos)
+            foreach (Articulo articulo in _listaArticulos) 
             {
                 precioTotal += articulo.PrecioVenta;
             }
