@@ -49,42 +49,39 @@ namespace Dominio
 
         public override void FinalizarPublicacion(Usuario usuario)
         {
-            if (usuario is Administrador)
-            {
-                OfertaSubasta mejorOferta = ObtenerMejorOferta();
-                if (mejorOferta != null && mejorOferta.Cliente.Saldo >= mejorOferta.Monto)
-                {
-                    mejorOferta.Cliente.DescontarSaldo(mejorOferta.Monto);
-                    _comprador = mejorOferta.Cliente;
-                    _estado = TipoEstado.CERRADA;
-                    _usuarioCierre = usuario;
-                    _fechaCierre = DateTime.Now;
-                }
-                else
-                {
-                    throw new Exception("No hay una oferta válida con saldo suficiente.");
-                }
-            }
-            else
+            // Validar si el usuario es un Administrador
+            if (!(usuario is Administrador administrador))
             {
                 throw new Exception("Solo un administrador puede cerrar la subasta.");
             }
+
+            // Validar si hay una oferta válida con saldo suficiente
+            OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
+            if (mejorOferta == null)
+            {
+                throw new Exception("No hay una oferta válida con saldo suficiente.");
+            }
+
+            // Si pasa las validaciones, proceder con el cierre de la subasta
+            mejorOferta.Cliente.DescontarSaldo(mejorOferta.Monto);
+            _comprador = mejorOferta.Cliente; // Asignar el comprador
+            _estado = TipoEstado.CERRADA;
+            _usuarioCierre = administrador;
+            _fechaCierre = DateTime.Now;
         }
 
-      private OfertaSubasta ObtenerMejorOferta()
-{
-    OfertaSubasta mejorOferta = null;
-
-    foreach (OfertaSubasta oferta in _listaOferta)
-    {
-        if (mejorOferta == null || oferta.Monto > mejorOferta.Monto)
+        private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
         {
-            mejorOferta = oferta;
-        }
-    }
+            foreach (OfertaSubasta oferta in _listaOferta)
+            {
+                if (oferta.Cliente.Saldo >= oferta.Monto)
+                {
+                    return oferta; // Devolvemos la primera oferta válida
+                }
+            }
 
-    return mejorOferta;
-}
+            return null; // Si no hay ninguna oferta válida
+        }
 
     }
 }

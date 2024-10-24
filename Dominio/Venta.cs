@@ -12,7 +12,7 @@ namespace Dominio
     {
         private bool _ofertaRelampago;
        
-        public Venta(bool ofertaRelampago, string nombre, TipoEstado estado, DateTime fechaPublicacion, Cliente? comprador, Cliente? usuarioCierre, DateTime? fechaCierre) :base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
+        public Venta(bool ofertaRelampago, string nombre, TipoEstado estado, DateTime fechaPublicacion, Usuario comprador, Usuario usuarioCierre, DateTime? fechaCierre) :base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
             _ofertaRelampago = ofertaRelampago;
         }
@@ -25,32 +25,32 @@ namespace Dominio
 
         public override void FinalizarPublicacion(Usuario usuario)
         {
-            if (usuario is Cliente c && c.Equals(_comprador))
+            // Validar si el usuario es un Cliente
+            if (!(usuario is Cliente cliente))
             {
-                // Verificar saldo disponible
-                if (c.Saldo >= CalcularPrecioFinal())
-                {
-                    c.DescontarSaldo(CalcularPrecioFinal());
-                    _estado = TipoEstado.CERRADA;
-                    _usuarioCierre = usuario;
-                    _fechaCierre = DateTime.Now;
-                }
-                else
-                {
-                    throw new Exception("Saldo insuficiente para completar la compra.");
-                }
+                throw new Exception("Solo un cliente puede finalizar esta venta.");
             }
-            else
+
+            // Validar si el cliente tiene saldo suficiente
+            double precioFinal = CalcularPrecioFinal();
+            if (cliente.Saldo < precioFinal)
             {
-                throw new Exception("Solo el comprador puede finalizar esta venta.");
+                throw new Exception("Saldo insuficiente para completar la compra.");
             }
+
+            // Si pasa las validaciones, proceder con el cierre de la venta
+            cliente.DescontarSaldo(precioFinal);
+            _comprador = cliente;  // Asignar el comprador al cerrar la venta
+            _estado = TipoEstado.CERRADA;
+            _usuarioCierre = cliente;
+            _fechaCierre = DateTime.Now;
         }
 
         private double CalcularPrecioFinal()
         {
             double precioTotal = 0;
 
-            // Sumar los precios de los artículos manualmente
+            
             foreach (Articulo articulo in _listaArticulos) 
             {
                 precioTotal += articulo.PrecioVenta;
