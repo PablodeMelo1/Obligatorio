@@ -8,6 +8,9 @@ namespace Dominio
 {
     public class Sistema
     {
+        
+        private static Sistema s_instancia;
+
         private List<Publicacion> _listaPublicaciones = new List<Publicacion>();
         private List<Articulo> _listaArticulos = new List<Articulo>();
         private List<Usuario> _listaUsuarios = new List<Usuario>();
@@ -37,7 +40,7 @@ namespace Dominio
         #endregion
 
         
-        public Sistema()
+        private Sistema()
         {
             // precargas de Publicaciones, articulos a publicaciones y ofertas con chat gpt: https://chatgpt.com/share/67071c61-c318-800a-96ec-81e337a1cd80 /
             // https://chatgpt.com/share/66f45260-8e1c-8000-96a9-b600ab75a7fb
@@ -46,6 +49,15 @@ namespace Dominio
             PrecargarPublicaciones();
             PrecargarArticulosAPublicaciones();
             PrecargarOfertasASubastas();
+        }
+
+        public static Sistema Instancia
+        {
+            get
+            {
+                if(s_instancia == null) s_instancia = new Sistema();
+                return s_instancia;
+            }
         }
         
 
@@ -248,7 +260,7 @@ namespace Dominio
         }
         #endregion
 
-        #region ALTAS
+        #region ALTAS        
         public void AltaArticulo(Articulo articulo)
         {
             if (articulo == null) throw new Exception("El articulo no puede ser nulo");

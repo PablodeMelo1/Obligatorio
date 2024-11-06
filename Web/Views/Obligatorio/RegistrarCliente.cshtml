@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "RegistrarCliente";
+}
+
+<h1>Registrarse</h1>
+<br />
+
+@if(ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@if(ViewBag.Exito != null)
+{
+    <div class="alert alert-success">@ViewBag.Exito</div>
+}
+<form method="post" action="/obligatorio/ProcesarRegistroDeCliente">
+    <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input type="text" placeholder="Ingrese nombre" class="form-control" name="nombre" value="@ViewBag.Nombre"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Apellido</label>
+        <input type="text" placeholder="Ingrese apellido" class="form-control" name="apellido" value="@ViewBag.Apellido"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="text" placeholder="Ingrese email" class="form-control" name="email" value="@ViewBag.Email"/>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Contraseña</label>
+        <input type="password" placeholder="Ingrese contraseña" class="form-control" name="contrasena" value="@ViewBag.Contrasena"/>
+    </div>
+    <br />
+    <input type="submit" value="Registrar" class="btn btn-secondary"/>
+</form>
+
