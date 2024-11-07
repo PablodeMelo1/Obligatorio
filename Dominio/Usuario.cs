@@ -28,9 +28,15 @@ namespace Dominio
 
         public void Validar()
         {
-            if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) || 
-                string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_contrasena)) 
-                throw new Exception("Los campos de nombre, apellido, contraseña y email son obligatorios.");            
+            if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) ||
+                string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_contrasena))
+                throw new Exception("Los campos de nombre, apellido, contraseña y email son obligatorios.");
+
+            // Validación de formato de email
+            if (!_email.Contains("@") || !_email.Contains(".")) throw new Exception("El formato del campo email no es válido");
+
+            // Validación de la longitud de la contraseña 
+            if (_contrasena.Length < 8) throw new Exception("La contraseña debe tener al menos 8 caracteres");
         }
 
         public override string ToString()

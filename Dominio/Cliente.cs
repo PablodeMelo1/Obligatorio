@@ -19,6 +19,15 @@ namespace Dominio
         {
             get { return _id; }
         }
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
+        public string Apellido
+        {
+            get { return _apellido; }
+        }
+
         public double Saldo
         {
             get
@@ -37,6 +46,13 @@ namespace Dominio
                 _saldo -= monto;
             }
         } 
+        
+        ///metodo para modificar el saldo del cliente
+        public void ModificarSaldo(double nuevoSaldo)
+        {
+            if (nuevoSaldo <= 0) throw new Exception("El saldo debe ser mayor a 0");
+            _saldo = nuevoSaldo;
+        }
 
         public override string ToString()
         {

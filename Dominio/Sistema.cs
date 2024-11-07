@@ -123,16 +123,16 @@ namespace Dominio
             AltaUsuario(new Administrador("Fabian", "Fernandez", "fabianfernandez@gmail.com", "fabianfer333"));
 
             //Alta de clientes con ayuda de ChatGPT
-            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@gmail.com", "abc12", 23000.00));
-            AltaUsuario(new Cliente("Sofia", "Martinez", "sofia.martinez@gmail.com", "pass123", 15000.00));
+            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@gmail.com", "abcdefgh12", 23000.00));
+            AltaUsuario(new Cliente("Sofia", "Martinez", "sofia.martinez@gmail.com", "password123", 15000.00));
             AltaUsuario(new Cliente("Lucas", "Fernandez", "lucas.fernandez@gmail.com", "fernandez456", 18000.00));
-            AltaUsuario(new Cliente("Valentina", "Gomez", "valentina.gomez@gmail.com", "vale789", 12000.00));
-            AltaUsuario(new Cliente("Mateo", "Lopez", "mateo.lopez@gmail.com", "lopez321", 20000.00));
-            AltaUsuario(new Cliente("Camila", "Garcia", "camila.garcia@gmail.com", "cami654", 25000.00));
-            AltaUsuario(new Cliente("Juan", "Perez", "juan.perez@gmail.com", "juan987", 17000.00));
-            AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@gmail.com", "ruiz111", 22000.00));
+            AltaUsuario(new Cliente("Valentina", "Gomez", "valentina.gomez@gmail.com", "valentina789", 12000.00));
+            AltaUsuario(new Cliente("Mateo", "Lopez", "mateo.lopez@gmail.com", "lopez3210", 20000.00));
+            AltaUsuario(new Cliente("Camila", "Garcia", "camila.garcia@gmail.com", "camila654", 25000.00));
+            AltaUsuario(new Cliente("Juan", "Perez", "juan.perez@gmail.com", "juanperez987", 17000.00));
+            AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@gmail.com", "ruizmartina111", 22000.00));
             AltaUsuario(new Cliente("Joaquin", "Mendez", "joaquin.mendez@gmail.com", "joaquin222", 14000.00));
-            AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333", 26000.00));
+            AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333666", 26000.00));
         }
         private void PrecargarPublicaciones()
         {
@@ -326,6 +326,15 @@ namespace Dominio
             publicacion.FinalizarPublicacion(usuario);
         }
 
+        ///pasamanos para obtener al cliente que se quiere modificar el saldo y asignarle el saldo nuevo
+        public void ModificarSaldoDeCliente(int idUsuario, double nuevoSaldo)
+        {
+            Cliente c = ObtenerClientePorId(idUsuario);
+
+            if (c == null) throw new Exception("El cliente no se encontró");
+            c.ModificarSaldo(nuevoSaldo);
+
+        }
 
         #region OBTENER POR ID
         public Cliente ObtenerClientePorId(int id)
