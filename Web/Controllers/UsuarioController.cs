@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class ObligatorioController : Controller
+    public class UsuariosController : Controller
     {
-        private Sistema miSistema = Sistema.Instancia;
+        Sistema miSistema = Sistema.Instancia;
 
         [HttpGet]
         public IActionResult RegistrarCliente()
@@ -28,13 +28,37 @@ namespace Web.Controllers
 
                 ViewBag.Exito = $"Cliente {nombre} {apellido} dado de alta con éxito!";
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
                 ViewBag.Nombre = nombre;
                 ViewBag.Apellido = apellido;
                 ViewBag.Email = email;
                 ViewBag.Contrasena = contrasena;
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ModificarSaldoCliente()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ModificarSaldoCliente(int idUsuario, double nuevoSaldo)
+        {
+            try
+            {
+                if (idUsuario < 0) throw new Exception("El id del cliente no es valido");
+                if (nuevoSaldo < 0) throw new Exception("El saldo no puede ser negativo");
+
+                miSistema.ModificarSaldoDeCliente(idUsuario, nuevoSaldo);
+                ViewBag.Exito = $"Se modificó el saldo del cliente {idUsuario} - Nuevo saldo: ${nuevoSaldo}";
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Error = ex.Message;
             }
             return View();
         }
