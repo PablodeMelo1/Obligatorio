@@ -25,6 +25,21 @@ namespace Dominio
             _email = email;
             _contrasena = contrasena;
         }
+        public string Email
+        {
+            get { return _email; }
+        }
+
+        public string Contrasena
+        {
+            get { return _contrasena; }
+        }
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        public double Saldo { get; internal set; }
 
         public void Validar()
         {
@@ -37,11 +52,26 @@ namespace Dominio
 
             // Validación de la longitud de la contraseña 
             if (_contrasena.Length < 8) throw new Exception("La contraseña debe tener al menos 8 caracteres");
+
         }
+
+        public abstract string Rol();
 
         public override string ToString()
         {
             return $"nombre: {_nombre} - apellido: {_apellido} email: {_email}";
+        }
+
+        public void DescontarSaldo(double monto) // metodo no requerido para la primer entrega.
+        {
+            if (monto > Saldo)
+            {
+                throw new Exception("Saldo insuficiente.");
+            }
+            else
+            {
+                Saldo -= monto;
+            }
         }
     }
 }

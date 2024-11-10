@@ -11,11 +11,11 @@ namespace Dominio
     {
         private int _id;
         private int s_ultId = 1;
-        private Cliente _cliente;
+        private Usuario _cliente;
         private double _monto;
         private DateTime _fecha;
 
-        public OfertaSubasta(DateTime fecha, Cliente cliente, double monto)
+        public OfertaSubasta(DateTime fecha, Usuario cliente, double monto)
         {
             _id = s_ultId;
             s_ultId++;
@@ -24,7 +24,7 @@ namespace Dominio
             _fecha = fecha;
         }
 
-        public Cliente Cliente
+        public Usuario Cliente
         {
             get { return _cliente; }
         }

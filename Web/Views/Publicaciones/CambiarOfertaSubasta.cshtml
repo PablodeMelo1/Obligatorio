@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "CambiarOfertaSubasta";
+}
+
+<h1>Cambiar Oferta</h1>
+
+<br />
+
+<form action="/publicaciones/CambiarOfertaSubasta" method="post">
+    <div class="form-group">
+    <label>Oferta Nueva</label>
+    <input type="number" placeholder="Ingrese una oferta nueva" />
+    </div>
+    
+    <input type="text" value="@ViewBag.IdSubasta" />
+    <br />
+    <input type="submit" class="btn btn-success" value="Cambiar" />
+</form>
+

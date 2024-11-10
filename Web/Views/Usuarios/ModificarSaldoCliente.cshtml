@@ -17,20 +17,7 @@
 }
 <br />
 
-<form method="post" action="/cliente/ModificarSaldoCliente">
-    <div class="form-group">
-        <label class="form-label">Seleccione cliente para modificar su saldo</label>
-        <select class="form-select" name="idUsuario">
-            @foreach (Usuario u in Sistema.Instancia.Usuario)
-            {
-                if (u is Cliente c)
-                {
-                    <option value="@c.Id">@c.Nombre @c.Apellido</option>
-                }
-            }
-        </select>
-    </div>
-
+<form method="post" action="/usuarios/ModificarSaldoCliente">
     <div class="form-group">
         <label class="form-label">Nuevo saldo</label>
         <input type="number" class="form-control" placeholder="Ingrese nuevo saldo" name="nuevoSaldo"/>

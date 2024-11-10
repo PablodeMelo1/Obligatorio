@@ -17,5 +17,10 @@ namespace Dominio
         {
             get { return _id; }
         }
+
+        public override string Rol()
+        {
+            return "administrador";
+        }
     }
 }

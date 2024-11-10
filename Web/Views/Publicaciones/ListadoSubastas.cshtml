@@ -1,0 +1,43 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "ListadoSubastas";
+}
+
+<h1>Listado de Subastas</h1>
+<br />
+
+@if (ViewBag.ListadoSubastas == null || ViewBag.ListadoSubastas.Count == 0)
+{
+    <div class="alert alert-danger">No hay subastas en el sistema</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Fecha de Publicacion</th>
+                <th>Estado</th>                
+                <th>Precio</th>
+                <th>Modificar Oferta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Subasta subasta in ViewBag.ListadoSubastas)
+            {
+                <tr>
+                    <td>@subasta.Id</td>
+                    <td>@subasta.Nombre</td>
+                    <td>@subasta.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                    <td>@subasta.Estado</td>
+                    <td>Precio</td>
+                    <td><a href="/publicaciones/cambiarofertasubasta?idSubasta=@subasta.Id">Cambiar Oferta</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+

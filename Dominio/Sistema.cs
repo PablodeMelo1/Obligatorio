@@ -43,7 +43,7 @@ namespace Dominio
         private Sistema()
         {
             // precargas de Publicaciones, articulos a publicaciones y ofertas con chat gpt: https://chatgpt.com/share/67071c61-c318-800a-96ec-81e337a1cd80 /
-            // https://chatgpt.com/share/66f45260-8e1c-8000-96a9-b600ab75a7fb
+            // https://chatgpt.com/share/672f9173-67c0-8013-9a48-9cc3d757ea7d
             PrecargarArticulos();
             PrecargarUsuarios();
             PrecargarPublicaciones();
@@ -119,20 +119,20 @@ namespace Dominio
         private void PrecargarUsuarios()
         {
 
-            AltaUsuario(new Administrador("Pablo", "de Melo", "pablodemelo@gmail.com", "pablo123"));
-            AltaUsuario(new Administrador("Fabian", "Fernandez", "fabianfernandez@gmail.com", "fabianfer333"));
+            AltaUsuario(new Administrador("Pablo", "de Melo", "pablodemelo@administrador.com", "pablo123"));
+            AltaUsuario(new Administrador("Fabian", "Fernandez", "fabianfernandez@administrador.com", "fabianfer333"));
 
-            //Alta de clientes con ayuda de ChatGPT
-            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@gmail.com", "abcdefgh12", 23000.00));
-            AltaUsuario(new Cliente("Sofia", "Martinez", "sofia.martinez@gmail.com", "password123", 15000.00));
-            AltaUsuario(new Cliente("Lucas", "Fernandez", "lucas.fernandez@gmail.com", "fernandez456", 18000.00));
-            AltaUsuario(new Cliente("Valentina", "Gomez", "valentina.gomez@gmail.com", "valentina789", 12000.00));
-            AltaUsuario(new Cliente("Mateo", "Lopez", "mateo.lopez@gmail.com", "lopez3210", 20000.00));
-            AltaUsuario(new Cliente("Camila", "Garcia", "camila.garcia@gmail.com", "camila654", 25000.00));
-            AltaUsuario(new Cliente("Juan", "Perez", "juan.perez@gmail.com", "juanperez987", 17000.00));
-            AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@gmail.com", "ruizmartina111", 22000.00));
-            AltaUsuario(new Cliente("Joaquin", "Mendez", "joaquin.mendez@gmail.com", "joaquin222", 14000.00));
-            AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@gmail.com", "silva333666", 26000.00));
+            // Alta de clientes con ayuda de ChatGPT
+            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@cliente.com", "abcdefgh12", 23000.00));
+            AltaUsuario(new Cliente("Sofia", "Martinez", "sofia.martinez@cliente.com", "password123", 15000.00));
+            AltaUsuario(new Cliente("Lucas", "Fernandez", "lucas.fernandez@cliente.com", "fernandez456", 18000.00));
+            AltaUsuario(new Cliente("Valentina", "Gomez", "valentina.gomez@cliente.com", "valentina789", 12000.00));
+            AltaUsuario(new Cliente("Mateo", "Lopez", "mateo.lopez@cliente.com", "lopez3210", 20000.00));
+            AltaUsuario(new Cliente("Camila", "Garcia", "camila.garcia@cliente.com", "camila654", 25000.00));
+            AltaUsuario(new Cliente("Juan", "Perez", "juan.perez@cliente.com", "juanperez987", 17000.00));
+            AltaUsuario(new Cliente("Martina", "Ruiz", "martina.ruiz@cliente.com", "ruizmartina111", 22000.00));
+            AltaUsuario(new Cliente("Joaquin", "Mendez", "joaquin.mendez@cliente.com", "joaquin222", 14000.00));
+            AltaUsuario(new Cliente("Renata", "Silva", "renata.silva@cliente.com", "silva333666", 26000.00));
         }
         private void PrecargarPublicaciones()
         {
@@ -271,7 +271,20 @@ namespace Dominio
         public void AltaUsuario(Usuario usuario)
         {
             if (usuario == null) throw new Exception("El Usuario no puede ser nulo");
+
+            // Verificar que el email sea único antes de agregar el usuario
+            foreach (Usuario u in _listaUsuarios)
+            {
+                if (u.Email == usuario.Email)
+                {
+                    throw new Exception("El email ya está registrado. Por favor, use uno diferente.");
+                }
+            }
+
+            // Validar el usuario
             usuario.Validar();
+
+            // Agregar el usuario a la lista
             _listaUsuarios.Add(usuario);
         }
 
@@ -283,6 +296,20 @@ namespace Dominio
         }
         #endregion
 
+        public Usuario Login(string email, string contrasena)
+        {
+            Usuario usuarioBuscado = null;
+            int i = 0;
+
+            while(usuarioBuscado == null && i < _listaUsuarios.Count)
+            {
+                if (_listaUsuarios[i].Email == email && _listaUsuarios[i].Contrasena == contrasena)
+                usuarioBuscado = _listaUsuarios [i];
+                i++;
+            }
+
+            return usuarioBuscado;
+        }
         public List<Articulo> ArticulosPorCategoria(string categoria)
         {
             List<Articulo> buscados = new List<Articulo>();
@@ -333,6 +360,17 @@ namespace Dominio
 
             if (c == null) throw new Exception("El cliente no se encontró");
             c.ModificarSaldo(nuevoSaldo);
+
+        }
+
+        //FALTA TERMINAR ESTE METODO, EL PROBLEMA ES QUE NO PUEDO ACCEDER AL MONTO DE LA OFERTA YA QUE SE ENCUENTRA
+        //EN LA CLASE OfertaSubasta Y NO EN LA CLASE Subasta.
+        public void ModificarOfertaSubasta(int idSubasta, double nuevaOferta)
+        {
+            Subasta s = ObtenerSubastaPorId(idSubasta);
+
+            if (s == null) throw new Exception("El cliente no se encontró");
+            s.CambiarOfertaSubasta(nuevaOferta);
 
         }
 

@@ -30,22 +30,9 @@ namespace Dominio
 
         public double Saldo
         {
-            get
-            {
-                return _saldo;
-            }          
+            get { return _saldo; }
         }
-        public void DescontarSaldo(double monto) // metodo no requerido para la primer entrega.
-        {
-            if (monto > _saldo)
-            {
-                throw new Exception("Saldo insuficiente.");
-            }
-            else
-            {
-                _saldo -= monto;
-            }
-        } 
+       
         
         ///metodo para modificar el saldo del cliente
         public void ModificarSaldo(double nuevoSaldo)
@@ -63,6 +50,11 @@ namespace Dominio
         {
             Cliente c = obj as Cliente;
             return c != null && this._id.Equals(c._id);
+        }
+
+        public override string Rol()
+        {
+            return "cliente";
         }
     }
 }

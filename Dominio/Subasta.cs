@@ -28,7 +28,15 @@ namespace Dominio
         {
             if (_estado != TipoEstado.ABIERTA) throw new Exception("La subasta no está en estado ABIERTA.");
         }
-    
+
+
+        //FALTA ACCEDER AL MONTO DE OfertaSubasta
+        public void ModificarOfertaSubasta(double nuevaOferta)
+        {
+            if (nuevaOferta <= 0) throw new Exception("El saldo debe ser mayor a 0");
+            OfertaSubasta.Monto = nuevaOferta;
+        }
+
 
         public void RegistrarOferta(OfertaSubasta ofe)
         {
@@ -72,6 +80,7 @@ namespace Dominio
 
         private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
         {
+
             foreach (OfertaSubasta oferta in _listaOferta)
             {
                 if (oferta.Cliente.Saldo >= oferta.Monto)
