@@ -46,10 +46,17 @@ namespace Dominio
             
         }
 
-
-        public void RegistrarOferta(OfertaSubasta ofe)
+        public bool ValidarUnicaOferta(Cliente cliente)
         {
+            foreach (OfertaSubasta o in _listaOferta)
+            {
+                if (o.Cliente.Equals(cliente)) return true;
+            }
+            return false;
+        }
+        public void RegistrarOferta(OfertaSubasta ofe)
 
+        {
             foreach (OfertaSubasta o in _listaOferta) //comprobamos que un cliente realize unicamente una oferta
             {
                 if (o.Cliente.Equals(ofe.Cliente)) throw new Exception("El cliente ya realizo una oferta en esta publicacion.");
@@ -59,7 +66,7 @@ namespace Dominio
             double ultMonto = 0; 
             if (_listaOferta.Count > 0) ultMonto = _listaOferta[(_listaOferta.Count - 1)].Monto;
             if (ofe == null) throw new Exception("La oferta no puede ser nula");
-            if (ofe.Monto < ultMonto) throw new Exception("La oferta no puede ser menor a la oferta anterior");
+            if (ofe.Monto <= ultMonto) throw new Exception("La oferta no puede ser menor o igual a la oferta anterior");
             ofe.Validar();
             _listaOferta.Add(ofe);
         }
@@ -78,9 +85,9 @@ namespace Dominio
             {
                 throw new Exception("No hay una oferta válida con saldo suficiente.");
             }
-
+            Cliente clienteFinal = mejorOferta.Cliente as Cliente;
             // Si pasa las validaciones, proceder con el cierre de la subasta
-            mejorOferta.Cliente.DescontarSaldo(mejorOferta.Monto);
+            clienteFinal.DescontarSaldo(mejorOferta.Monto);
             _comprador = mejorOferta.Cliente; // Asignar el comprador
             _estado = TipoEstado.CERRADA;
             _usuarioCierre = administrador;
@@ -89,16 +96,25 @@ namespace Dominio
 
         private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
         {
-
             foreach (OfertaSubasta oferta in _listaOferta)
             {
-                if (oferta.Cliente.Saldo >= oferta.Monto)
+                Cliente c = oferta.Cliente as Cliente;
+                if (c.Saldo >= oferta.Monto)
                 {
                     return oferta; // Devolvemos la primera oferta válida
                 }
             }
-
             return null; // Si no hay ninguna oferta válida
+        }
+
+
+        public double ObtenerOfertaDeCliente(Cliente c)
+        {
+            foreach (OfertaSubasta o in _listaOferta)
+            {
+                if (o.Cliente.Equals(c)) return o.Monto;
+            }
+            return 0.0;
         }
 
     }

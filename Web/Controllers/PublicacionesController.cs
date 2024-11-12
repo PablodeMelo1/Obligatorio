@@ -1,5 +1,9 @@
 ﻿using Dominio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net.Http;
+using System.Runtime.Intrinsics.Arm;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Web.Controllers
@@ -30,6 +34,31 @@ namespace Web.Controllers
             ViewBag.ListadoSubastas = subastas;
             return View();
         }
+
+
+
+        public IActionResult CerrarSubasta(int idSubasta)
+        {
+            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
+            {
+                return View("NoAutorizado");
+            }
+
+            try
+            {
+                Usuario u = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email"));
+                Subasta s = miSistema.ObtenerPublicacionPorId(idSubasta) as Subasta;
+                s.FinalizarPublicacion(u);
+                TempData["Exito"] = $"Subasta cerrada con exito!";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+
+            return RedirectToAction("ListadoSubastas");
+        }
+
         [HttpGet]
         public IActionResult ListadoPublicaciones()
         {
@@ -43,21 +72,9 @@ namespace Web.Controllers
             ViewBag.ListadoPublicaciones = publicaciones;
             return View();
         }
-
-
-        [HttpGet]
-        public IActionResult CambiarOfertaSubasta(int idSubasta)
-        {
-            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
-            {
-                return View("NoAutorizado");
-            }
-
-            ViewBag.idSubasta = idSubasta;
-            return View();
-        }
         
-        public IActionResult comprarOfertar(int idP)
+
+        public IActionResult Comprar(int idP)
         {
             if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "cliente")
             {
@@ -68,12 +85,7 @@ namespace Web.Controllers
             {
                 Usuario u = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email"));
                 Publicacion p = miSistema.ObtenerPublicacionPorId(idP);
-                if (p is Subasta s)
-                {
-                    OfertaSubasta oferta = new OfertaSubasta(new DateTime(2024, 10, 5), miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")), 5000);
-                    s.RegistrarOferta(oferta);
-                }
-                else if (p is Venta v)
+                if (p is Venta v)
                 {
                     p.FinalizarPublicacion(u);
                 }
@@ -83,34 +95,51 @@ namespace Web.Controllers
             {
                 TempData["Error"] = ex.Message;
             }
-            
+
             return RedirectToAction("ListadoPublicaciones");
         }
 
+        [HttpGet]
+        public IActionResult CambiarOfertarSubasta(int idS)
+        {
+            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "cliente")
+            {
+                return View("NoAutorizado");
+            }
+            Cliente c = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")) as Cliente;
+            Subasta s = miSistema.ObtenerSubastaPorId(idS);
+            if (s.ValidarUnicaOferta(c))
+            {
+                ViewBag.Valor = s.ObtenerOfertaDeCliente(c);
+            }
+            
+            ViewBag.idSubasta = idS;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CambiarOfertarSubasta(int idS, double nuevaOferta)
+        {
+            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "cliente")
+            {
+                return View("NoAutorizado");
+            }
+
+            try
+            {
+                Subasta s = miSistema.ObtenerSubastaPorId(idS);
+                if (nuevaOferta < 0) throw new Exception("el saldo no puede ser negativo");
+                OfertaSubasta oferta = new OfertaSubasta(DateTime.Now, miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")), nuevaOferta);
+                s.RegistrarOferta(oferta);
+                TempData["Exito"] = $"Oferta realizada con exito!";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+            }
+            return RedirectToAction("ListadoPublicaciones");
 
 
-        ////FALTA TERMINAR ESTE METODO PARA MODIFICAR EL IMPORTE DE LAS OFERTAS QUE SE LE HACE A UNA SUBASTA
-        //[HttpPost]
-        //public IActionResult CambiarOfertaSubasta(int idSubasta, double nuevaOferta)
-        //{
-        //    if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
-        //    {
-        //        return View("NoAutorizado");
-        //    }
-
-        //    try
-        //    {                
-        //        if (nuevaOferta < 0) throw new Exception("El saldo no puede ser negativo");
-
-        //        miSistema.ModificarSaldoDeCliente(idSubasta, nuevaOferta);
-        //        ViewBag.Exito = $"Se modificó el saldo del cliente {idSubasta} - Nuevo saldo: ${nuevaOferta}";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Error = ex.Message;
-        //    }
-        //    return View();
-
-        //}
+        }
     }
 }

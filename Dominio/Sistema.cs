@@ -368,11 +368,11 @@ namespace Dominio
         //EN LA CLASE OfertaSubasta Y NO EN LA CLASE Subasta.
         //public void ModificarOfertaSubasta(int idSubasta, double nuevaOferta)
         //{
-        //   Subasta s = ObtenerSubastaPorId(idSubasta);
+        //    Subasta s = ObtenerSubastaPorId(idSubasta);
 
         //    if (s == null) throw new Exception("El cliente no se encontró");
         //    s.CambiarOfertaSubasta(nuevaOferta);
-        //
+        
         //}
 
         #region OBTENER POR ID
@@ -468,6 +468,7 @@ namespace Dominio
             }
             return buscado;
         }
+        
 
     }
 

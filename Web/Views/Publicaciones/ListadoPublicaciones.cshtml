@@ -47,8 +47,14 @@ else
                         <td>@s.Estado</td>
                         <td>@s.UltimaOferta()</td>
                         <td>
-                            <a class="btn btn-primary" href="/publicaciones/comprarOfertar?idP=@s.Id">Ofertar/Modificar</a>
-                        </td>
+                            @if (s.Estado == TipoEstado.ABIERTA)
+                            {
+                                <a class="btn btn-primary" href="/publicaciones/CambiarOfertarSubasta?idS=@s.Id">Ofertar/Modificar</a>
+                            }
+                            else
+                            {
+                                <h5>CERRADA</h5>
+                            }
                        
                     </tr>
                     }
@@ -64,11 +70,10 @@ else
                         <td>@v.CalcularPrecioFinal()</td>
                         <td>@if (v.Estado == TipoEstado.ABIERTA)
                             {
-                                <a class="btn btn-success" href="/publicaciones/comprarOfertar?idP=@v.Id
-                                ">Comprar</a>
+                                <a class="btn btn-success" href="/publicaciones/comprar?idP=@v.Id">Comprar</a>
                             } else
                             {
-                                <h5>Comprado</h5>
+                                <h5>COMPRADO</h5>
                             }
                         </td> 
                     </tr>

@@ -6,6 +6,16 @@
 <h1>Listado de Subastas</h1>
 <br />
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+
 @if (ViewBag.ListadoSubastas == null || ViewBag.ListadoSubastas.Count == 0)
 {
     <div class="alert alert-danger">No hay subastas en el sistema</div>
@@ -34,9 +44,8 @@ else
                     <td>@subasta.UltimaOferta()</td>
                     <td>@if (subasta.Estado == TipoEstado.ABIERTA)
                         {
-                            <a class="btn btn-primary" href="/publicaciones/cambiarofertasubasta?idSubasta=@subasta.Id">Cerrar Subasta</a>
-                            @* //redireccionar para cerrar la subasta. *@
-                        } else {<h5>cerrada</h5>}</td>
+                            <a class="btn btn-primary" href="/publicaciones/CerrarSubasta?idSubasta=@subasta.Id">Cerrar Subasta</a>
+                        } else {<h5>CERRADA</h5>}</td>
                 </tr>
             }
         </tbody>

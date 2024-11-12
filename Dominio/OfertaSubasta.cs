@@ -45,9 +45,5 @@ namespace Dominio
             return $"id: {_id} cliente: {_cliente} - monto: {_monto} - fecha {_fecha}";
         }
 
-
-
-
-
     }
 }
