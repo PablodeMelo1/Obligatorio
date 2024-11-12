@@ -20,21 +20,30 @@ namespace Dominio
             get { return _listaOferta; }
         }
         public override void Validar(){            
-            ValidarEstado();            
+            //ValidarEstado();            
         }     
               
      
-        public void ValidarEstado()
-        {
-            if (_estado != TipoEstado.ABIERTA) throw new Exception("La subasta no está en estado ABIERTA.");
-        }
+        //public void ValidarEstado()
+        //{
+        //    if (_estado != TipoEstado.ABIERTA) throw new Exception("La subasta no está en estado ABIERTA.");
+        //}
 
 
         //FALTA ACCEDER AL MONTO DE OfertaSubasta
-        public void ModificarOfertaSubasta(double nuevaOferta)
+        //public void ModificarOfertaSubasta(double nuevaOferta)
+        //{
+        //    if (nuevaOferta <= 0) throw new Exception("El saldo debe ser mayor a 0");
+        //    OfertaSubasta.Monto = nuevaOferta;
+        //}
+        public double UltimaOferta()
         {
-            if (nuevaOferta <= 0) throw new Exception("El saldo debe ser mayor a 0");
-            OfertaSubasta.Monto = nuevaOferta;
+            if (_listaOferta.Count >= 1)
+            {
+                return _listaOferta[(_listaOferta.Count) - 1].Monto;
+            }
+            else return 0;
+            
         }
 
 

@@ -1,0 +1,80 @@
+﻿@using Dominio;
+@{
+    ViewData["Title"] = "ListadoPublicaciones";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Exito"] != null)
+{
+    <div class="alert alert-success">@TempData["Exito"]</div>
+}
+<br />
+
+<h1>Listado de Publicaciones</h1>
+<br />
+
+@if (ViewBag.ListadoPublicaciones == null || ViewBag.ListadoPublicaciones.Count == 0)
+{
+    <div class="alert alert-danger">No hay publicaciones en el sistema</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo de Publicacion</th>
+                <th>Nombre</th>
+                <th>Fecha de Publicacion</th>
+                <th>Estado</th>
+                <th>Precio</th>
+                <th>Compra/realizar oferta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Publicacion p in ViewBag.ListadoPublicaciones)
+            {
+                @if(p is Subasta s){
+                    <tr>
+                        <td>@s.Id</td>
+                        <td>Subasta</td>
+                        <td>@s.Nombre</td>
+                        <td>@s.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                        <td>@s.Estado</td>
+                        <td>@s.UltimaOferta()</td>
+                        <td>
+                            <a class="btn btn-primary" href="/publicaciones/comprarOfertar?idP=@s.Id">Ofertar/Modificar</a>
+                        </td>
+                       
+                    </tr>
+                    }
+                @if (p is Venta v){
+                
+                
+                    <tr>
+                        <td>@v.Id</td>
+                        <td>Venta</td>
+                        <td>@v.Nombre</td>
+                        <td>@v.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                        <td>@v.Estado</td>
+                        <td>@v.CalcularPrecioFinal()</td>
+                        <td>@if (v.Estado == TipoEstado.ABIERTA)
+                            {
+                                <a class="btn btn-success" href="/publicaciones/comprarOfertar?idP=@v.Id
+                                ">Comprar</a>
+                            } else
+                            {
+                                <h5>Comprado</h5>
+                            }
+                        </td> 
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+}

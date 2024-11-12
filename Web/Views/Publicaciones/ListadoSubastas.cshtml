@@ -20,7 +20,7 @@ else
                 <th>Fecha de Publicacion</th>
                 <th>Estado</th>                
                 <th>Precio</th>
-                <th>Modificar Oferta</th>
+                <th>Cerrar Subasta</th>
             </tr>
         </thead>
         <tbody>
@@ -31,8 +31,12 @@ else
                     <td>@subasta.Nombre</td>
                     <td>@subasta.FechaPublicacion.ToString("dd/MM/yyyy")</td>
                     <td>@subasta.Estado</td>
-                    <td>Precio</td>
-                    <td><a href="/publicaciones/cambiarofertasubasta?idSubasta=@subasta.Id">Cambiar Oferta</a></td>
+                    <td>@subasta.UltimaOferta()</td>
+                    <td>@if (subasta.Estado == TipoEstado.ABIERTA)
+                        {
+                            <a class="btn btn-primary" href="/publicaciones/cambiarofertasubasta?idSubasta=@subasta.Id">Cerrar Subasta</a>
+                            @* //redireccionar para cerrar la subasta. *@
+                        } else {<h5>cerrada</h5>}</td>
                 </tr>
             }
         </tbody>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -31,10 +32,16 @@
                         @if(Context.Session.GetString("rol") != null)
                         {                            
                             @if (Context.Session.GetString("rol") == "cliente")
+
                             {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Publicaciones" asp-action="ListadoPublicaciones">Listado de Publicaciones</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="ModificarSaldoCliente">Modificar Saldo</a>
                                 </li>
+                               
+                                
                             }
                             else
                             {

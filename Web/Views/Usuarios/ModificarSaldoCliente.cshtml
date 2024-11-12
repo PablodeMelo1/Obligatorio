@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "ModificarSaldoCliente";
 }
-
 <h1>Modificar Saldo</h1>
+ 
 <br />
 
 @if(ViewBag.Error != null)
@@ -17,10 +17,12 @@
 }
 <br />
 
+    
+
 <form method="post" action="/usuarios/ModificarSaldoCliente">
     <div class="form-group">
-        <label class="form-label">Nuevo saldo</label>
-        <input type="number" class="form-control" placeholder="Ingrese nuevo saldo" name="nuevoSaldo"/>
+        <label class="form-label">Cargar Saldo</label>
+        <input type="number" class="form-control" placeholder="Ingrese saldo a cargar" name="nuevoSaldo"/>
     </div>
 
     <br />

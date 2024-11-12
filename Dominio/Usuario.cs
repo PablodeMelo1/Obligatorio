@@ -62,16 +62,9 @@ namespace Dominio
             return $"nombre: {_nombre} - apellido: {_apellido} email: {_email}";
         }
 
-        public void DescontarSaldo(double monto) // metodo no requerido para la primer entrega.
+        public void DescontarSaldo(double monto)
         {
-            if (monto > Saldo)
-            {
-                throw new Exception("Saldo insuficiente.");
-            }
-            else
-            {
                 Saldo -= monto;
-            }
         }
     }
 }

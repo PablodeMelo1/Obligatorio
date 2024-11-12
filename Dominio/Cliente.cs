@@ -31,6 +31,7 @@ namespace Dominio
         public double Saldo
         {
             get { return _saldo; }
+            set { _saldo = value; }
         }
        
         
@@ -56,5 +57,18 @@ namespace Dominio
         {
             return "cliente";
         }
+
+        public void DescontarSaldo(double monto)
+        {
+            if (_saldo >= monto)
+            {
+                Saldo -= monto;
+            } else
+            {
+                throw new Exception("Saldo insuficiente");
+            }
+        }
+
+
     }
 }

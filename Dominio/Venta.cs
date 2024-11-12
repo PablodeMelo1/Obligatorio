@@ -46,7 +46,7 @@ namespace Dominio
             _fechaCierre = DateTime.Now;
         }
 
-        private double CalcularPrecioFinal()
+        public double CalcularPrecioFinal()
         {
             double precioTotal = 0;
 

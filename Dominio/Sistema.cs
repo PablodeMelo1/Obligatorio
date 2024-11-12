@@ -123,7 +123,7 @@ namespace Dominio
             AltaUsuario(new Administrador("Fabian", "Fernandez", "fabianfernandez@administrador.com", "fabianfer333"));
 
             // Alta de clientes con ayuda de ChatGPT
-            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@cliente.com", "abcdefgh12", 23000.00));
+            AltaUsuario(new Cliente("Cristian", "Rodriguez", "cristian12@cliente.com", "abcdefgh12", 1170.00));
             AltaUsuario(new Cliente("Sofia", "Martinez", "sofia.martinez@cliente.com", "password123", 15000.00));
             AltaUsuario(new Cliente("Lucas", "Fernandez", "lucas.fernandez@cliente.com", "fernandez456", 18000.00));
             AltaUsuario(new Cliente("Valentina", "Gomez", "valentina.gomez@cliente.com", "valentina789", 12000.00));
@@ -153,10 +153,10 @@ namespace Dominio
             AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), null, null, null));
             AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 10, 9), null, null, null));
             AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), null, null, null));
-            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.CERRADA, new DateTime(2024, 10, 1), null, null, null));
             AltaPublicacion(new Subasta("Subasta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 3), null, null, null));
             AltaPublicacion(new Subasta("Subasta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), null, null, null));
-            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 7), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.CERRADA, new DateTime(2024, 10, 7), null, null, null));
             AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), null, null, null));
             AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), null, null, null));
             AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), null, null, null));
@@ -359,20 +359,21 @@ namespace Dominio
             Cliente c = ObtenerClientePorId(idUsuario);
 
             if (c == null) throw new Exception("El cliente no se encontró");
-            c.ModificarSaldo(nuevoSaldo);
+            if (nuevoSaldo <= 0) throw new Exception("El monto no puede ser  vacio o 0");
+            c.ModificarSaldo(c.Saldo + nuevoSaldo);
 
         }
 
         //FALTA TERMINAR ESTE METODO, EL PROBLEMA ES QUE NO PUEDO ACCEDER AL MONTO DE LA OFERTA YA QUE SE ENCUENTRA
         //EN LA CLASE OfertaSubasta Y NO EN LA CLASE Subasta.
-        public void ModificarOfertaSubasta(int idSubasta, double nuevaOferta)
-        {
-            Subasta s = ObtenerSubastaPorId(idSubasta);
+        //public void ModificarOfertaSubasta(int idSubasta, double nuevaOferta)
+        //{
+        //   Subasta s = ObtenerSubastaPorId(idSubasta);
 
-            if (s == null) throw new Exception("El cliente no se encontró");
-            s.CambiarOfertaSubasta(nuevaOferta);
-
-        }
+        //    if (s == null) throw new Exception("El cliente no se encontró");
+        //    s.CambiarOfertaSubasta(nuevaOferta);
+        //
+        //}
 
         #region OBTENER POR ID
         public Cliente ObtenerClientePorId(int id)
@@ -455,6 +456,19 @@ namespace Dominio
 
             return buscado;
         }
+        public Usuario ObtenerUsuarioPorEmail(string email)
+        {
+            Usuario buscado = null;
+            int i = 0;
+            while (i < _listaUsuarios.Count && buscado == null)
+            {
+                Usuario u = _listaUsuarios[i];
+                if (_listaUsuarios[i].Email == email) buscado = u;
+                i++;
+            }
+            return buscado;
+        }
+
     }
 
 }

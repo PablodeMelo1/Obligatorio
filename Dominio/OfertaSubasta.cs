@@ -27,6 +27,7 @@ namespace Dominio
         public Usuario Cliente
         {
             get { return _cliente; }
+            set { _cliente = value; }
         }
 
         public double Monto

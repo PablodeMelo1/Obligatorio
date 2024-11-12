@@ -6,7 +6,7 @@
 <h1>Cambiar Oferta</h1>
 
 <br />
-
+Cliente c = miSistema.ObtenerClientePorId(miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")).Id)
 <form action="/publicaciones/CambiarOfertaSubasta" method="post">
     <div class="form-group">
     <label>Oferta Nueva</label>
@@ -16,5 +16,6 @@
     <input type="text" value="@ViewBag.IdSubasta" />
     <br />
     <input type="submit" class="btn btn-success" value="Cambiar" />
+
 </form>
 

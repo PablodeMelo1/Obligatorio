@@ -85,27 +85,30 @@ namespace Web.Controllers
             if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "cliente")
             {
                 return View("NoAutorizado");
-            }   
+            }
             
             return View();
             
         }
 
         [HttpPost]
-        public IActionResult ModificarSaldoCliente(int idUsuario, double nuevoSaldo)
+        public IActionResult ModificarSaldoCliente(double nuevoSaldo)
         {
-            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
+            if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "cliente")
             {
                 return View("NoAutorizado");
             }
 
             try
             {
-                if (idUsuario < 0) throw new Exception("El id del cliente no es valido");
+
+                Cliente c = miSistema.ObtenerClientePorId(miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")).Id);
+                //c.ModificarSaldo(nuevoSaldo);
+                // falta try and catch
                 if (nuevoSaldo < 0) throw new Exception("El saldo no puede ser negativo");
 
-                miSistema.ModificarSaldoDeCliente(idUsuario, nuevoSaldo);
-                ViewBag.Exito = $"Se modificó el saldo del cliente {idUsuario} - Nuevo saldo: ${nuevoSaldo}";
+                miSistema.ModificarSaldoDeCliente(c.Id, nuevoSaldo);
+                ViewBag.Exito = $"Se modificó el saldo del cliente {c.Nombre} - Nuevo saldo: ${c.Saldo}";
             }
             catch (Exception ex)
             {
