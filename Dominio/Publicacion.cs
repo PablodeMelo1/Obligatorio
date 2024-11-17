@@ -30,10 +30,10 @@ namespace Dominio
             _comprador = comprador;
             _usuarioCierre = usuarioCierre;
             _fechaCierre = fechaCierre;
-
-        }
-
+        }       
         public abstract void FinalizarPublicacion(Usuario usuario);
+        public abstract string IdentificarPublicacion();       
+        public abstract double CalculoUltimaOfertaPrecioFinal();
 
         public TipoEstado Estado
         {
@@ -72,7 +72,6 @@ namespace Dominio
             _listaArticulos.Add(a);
         }
 
-
-
     }
+
 }

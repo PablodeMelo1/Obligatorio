@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Subasta : Publicacion
+    public class Subasta : Publicacion, IComparable<Publicacion>
     {
         private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
 
@@ -19,6 +19,13 @@ namespace Dominio
         {
             get { return _listaOferta; }
         }
+
+        public override string IdentificarPublicacion()
+        {
+            return "subasta";
+        }
+
+
         public override void Validar(){            
             //ValidarEstado();            
         }     
@@ -36,7 +43,7 @@ namespace Dominio
         //    if (nuevaOferta <= 0) throw new Exception("El saldo debe ser mayor a 0");
         //    OfertaSubasta.Monto = nuevaOferta;
         //}
-        public double UltimaOferta()
+        public override double CalculoUltimaOfertaPrecioFinal()
         {
             if (_listaOferta.Count >= 1)
             {
@@ -44,7 +51,7 @@ namespace Dominio
             }
             else return 0;
             
-        }
+        }       
 
         public bool ValidarUnicaOferta(Cliente cliente)
         {
@@ -115,7 +122,11 @@ namespace Dominio
                 if (o.Cliente.Equals(c)) return o.Monto;
             }
             return 0.0;
-        }
+        }       
 
+        public int CompareTo(Publicacion? other)
+        {
+            return other.FechaPublicacion.CompareTo(this.FechaPublicacion);
+        }
     }
 }

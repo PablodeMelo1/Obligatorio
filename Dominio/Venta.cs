@@ -17,6 +17,11 @@ namespace Dominio
             _ofertaRelampago = ofertaRelampago;
         }
 
+        public override string IdentificarPublicacion()
+        {
+            return "venta";
+        }
+
         public string TieneOfertaRelampago() //retornar si la venta tien oferta relampago
         {
             if (_ofertaRelampago) return "Si";
@@ -32,7 +37,7 @@ namespace Dominio
             }
 
             // Validar si el cliente tiene saldo suficiente
-            double precioFinal = CalcularPrecioFinal();
+            double precioFinal = CalculoUltimaOfertaPrecioFinal();
             if (cliente.Saldo < precioFinal)
             {
                 throw new Exception("Saldo insuficiente para completar la compra.");
@@ -46,7 +51,7 @@ namespace Dominio
             _fechaCierre = DateTime.Now;
         }
 
-        public double CalcularPrecioFinal()
+        public override double CalculoUltimaOfertaPrecioFinal()
         {
             double precioTotal = 0;
 
@@ -65,6 +70,7 @@ namespace Dominio
             return precioTotal;
         }
 
+       
 
     }
 

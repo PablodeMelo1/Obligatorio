@@ -66,7 +66,7 @@ namespace Web.Controllers
                 Usuario u = new Cliente(nombre, apellido, email, contrasena, 0);
                 miSistema.AltaUsuario(u);
 
-                ViewBag.Exito = $"Cliente {nombre} {apellido} dado de alta con éxito!";
+                ViewBag.Exito = $"Cliente {nombre} {apellido} registrado con éxito!";
             }
             catch (Exception ex)
             {

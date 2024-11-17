@@ -38,18 +38,19 @@ else
         <tbody>
             @foreach (Publicacion p in ViewBag.ListadoPublicaciones)
             {
-                @if(p is Subasta s){
+                @if (p.IdentificarPublicacion() == "subasta")
+                {
                     <tr>
-                        <td>@s.Id</td>
+                        <td>@p.Id</td>
                         <td>Subasta</td>
-                        <td>@s.Nombre</td>
-                        <td>@s.FechaPublicacion.ToString("dd/MM/yyyy")</td>
-                        <td>@s.Estado</td>
-                        <td>@s.UltimaOferta()</td>
+                        <td>@p.Nombre</td>
+                        <td>@p.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                        <td>@p.Estado</td>
+                        <td>@p.CalculoUltimaOfertaPrecioFinal()</td>
                         <td>
-                            @if (s.Estado == TipoEstado.ABIERTA)
+                            @if (p.Estado == TipoEstado.ABIERTA)
                             {
-                                <a class="btn btn-primary" href="/publicaciones/CambiarOfertarSubasta?idS=@s.Id">Ofertar/Modificar</a>
+                                <a class="btn btn-primary" href="/publicaciones/CambiarOfertarSubasta?idS=@p.Id">Ofertar/Modificar</a>
                             }
                             else
                             {
@@ -57,20 +58,21 @@ else
                             }
                        
                     </tr>
-                    }
-                @if (p is Venta v){
+                }
+                @if (p.IdentificarPublicacion() == "venta")
+                {
                 
                 
                     <tr>
-                        <td>@v.Id</td>
+                        <td>@p.Id</td>
                         <td>Venta</td>
-                        <td>@v.Nombre</td>
-                        <td>@v.FechaPublicacion.ToString("dd/MM/yyyy")</td>
-                        <td>@v.Estado</td>
-                        <td>@v.CalcularPrecioFinal()</td>
-                        <td>@if (v.Estado == TipoEstado.ABIERTA)
+                        <td>@p.Nombre</td>
+                        <td>@p.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                        <td>@p.Estado</td>
+                        <td>@p.CalculoUltimaOfertaPrecioFinal()</td>
+                        <td>@if (p.Estado == TipoEstado.ABIERTA)
                             {
-                                <a class="btn btn-success" href="/publicaciones/comprar?idP=@v.Id">Comprar</a>
+                                <a class="btn btn-success" href="/publicaciones/comprar?idP=@p.Id">Comprar</a>
                             } else
                             {
                                 <h5>COMPRADO</h5>

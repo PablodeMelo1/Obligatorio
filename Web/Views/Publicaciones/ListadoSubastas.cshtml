@@ -41,7 +41,7 @@ else
                     <td>@subasta.Nombre</td>
                     <td>@subasta.FechaPublicacion.ToString("dd/MM/yyyy")</td>
                     <td>@subasta.Estado</td>
-                    <td>@subasta.UltimaOferta()</td>
+                    <td>@subasta.CalculoUltimaOfertaPrecioFinal()</td>
                     <td>@if (subasta.Estado == TipoEstado.ABIERTA)
                         {
                             <a class="btn btn-primary" href="/publicaciones/CerrarSubasta?idSubasta=@subasta.Id">Cerrar Subasta</a>

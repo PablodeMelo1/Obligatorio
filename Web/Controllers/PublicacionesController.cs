@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System;
 using System.Net.Http;
 using System.Runtime.Intrinsics.Arm;
@@ -20,7 +21,7 @@ namespace Web.Controllers
                 return View("NoAutorizado");
             }
 
-            List<Publicacion> subastas = new List<Publicacion>();
+            List<Publicacion> subastas = miSistema.SubastasOrdenadasPorFecha();
 
             // Filtrar las publicaciones que son de tipo Subasta
             foreach (Publicacion publicacion in miSistema.Publicacion)
@@ -67,10 +68,21 @@ namespace Web.Controllers
                 return View("NoAutorizado");
             }
 
+            try
+            {
+            // Agregar Validacion      
+
             List<Publicacion> publicaciones = new List<Publicacion>();
             publicaciones = miSistema.Publicacion;
             ViewBag.ListadoPublicaciones = publicaciones;
             return View();
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View("Error");
+            }
         }
         
 

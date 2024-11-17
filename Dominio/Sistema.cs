@@ -296,6 +296,12 @@ namespace Dominio
         }
         #endregion
 
+        public List<Publicacion> SubastasOrdenadasPorFecha()
+        {            
+            _listaPublicaciones.Sort();
+            return _listaPublicaciones;
+        }
+
         public Usuario Login(string email, string contrasena)
         {
             Usuario usuarioBuscado = null;
