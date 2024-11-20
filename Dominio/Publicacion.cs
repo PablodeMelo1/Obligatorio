@@ -31,18 +31,10 @@ namespace Dominio
             _usuarioCierre = usuarioCierre;
             _fechaCierre = fechaCierre;
         }       
-        public abstract void FinalizarPublicacion(Usuario usuario);
-        public abstract string IdentificarPublicacion();       
+        public abstract void FinalizarPublicacion(Usuario usuario);            
         public abstract double CalculoUltimaOfertaPrecioFinal();
-        public virtual bool EsSubasta()
-        {
-            return false; 
-        }
-        public virtual bool EsVenta()
-        {
-            return false; 
-        }
-
+        public abstract bool EsSubasta();
+        
         public TipoEstado Estado
         {
             get { return _estado; }

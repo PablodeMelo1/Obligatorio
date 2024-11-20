@@ -17,16 +17,12 @@ namespace Dominio
             _ofertaRelampago = ofertaRelampago;
         }
 
-        public override string IdentificarPublicacion()
+        public override bool EsSubasta()
         {
-            return "venta";
-        }
-        public override bool EsVenta()
-        {
-            return true; 
+            return false;
         }
 
-        public string TieneOfertaRelampago() //retornar si la venta tien oferta relampago
+        public string TieneOfertaRelampago() //retornar si la venta tiene oferta relampago
         {
             if (_ofertaRelampago) return "Si";
             else return "No";

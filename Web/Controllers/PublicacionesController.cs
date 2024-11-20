@@ -115,7 +115,7 @@ namespace Web.Controllers
             {
                 Usuario u = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email"));
                 Publicacion p = miSistema.ObtenerPublicacionPorId(idP);
-                if (p.EsVenta())
+                if (!p.EsSubasta())
                 {
                     p.FinalizarPublicacion(u);
                 }

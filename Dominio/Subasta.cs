@@ -20,12 +20,6 @@ namespace Dominio
             get { return _listaOferta; }
         }
 
-        public override string IdentificarPublicacion()
-        {
-            return "subasta";
-        }
-
-
         public override void Validar(){            
             //ValidarEstado();            
         }     

@@ -38,7 +38,7 @@ else
         <tbody>
             @foreach (Publicacion p in ViewBag.ListadoPublicaciones)
             {
-                @if (p.IdentificarPublicacion() == "subasta")
+                @if (p.EsSubasta())
                 {
                     <tr>
                         <td>@p.Id</td>
@@ -59,7 +59,7 @@ else
                        
                     </tr>
                 }
-                @if (p.IdentificarPublicacion() == "venta")
+                @if (!p.EsSubasta())
                 {
                 
                 
