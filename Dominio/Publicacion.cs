@@ -36,11 +36,11 @@ namespace Dominio
         public abstract double CalculoUltimaOfertaPrecioFinal();
         public virtual bool EsSubasta()
         {
-            return false; // Por defecto, una publicación no es una subasta
+            return false; 
         }
         public virtual bool EsVenta()
         {
-            return false; // Por defecto, una publicación no es una subasta
+            return false; 
         }
 
         public TipoEstado Estado
