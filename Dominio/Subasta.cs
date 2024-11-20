@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Subasta : Publicacion, IComparable<Publicacion>
+    public class Subasta : Publicacion, IComparable<Subasta>
     {
         private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
 
@@ -51,8 +51,7 @@ namespace Dominio
             }
             else return 0;
             
-        }       
-
+        }
         public bool ValidarUnicaOferta(Cliente cliente)
         {
             foreach (OfertaSubasta o in _listaOferta)
@@ -122,9 +121,13 @@ namespace Dominio
                 if (o.Cliente.Equals(c)) return o.Monto;
             }
             return 0.0;
-        }       
+        }
+        public override bool EsSubasta()
+        {
+            return true; // Modifico para confirmar que es una subasta
+        }
 
-        public int CompareTo(Publicacion? other)
+        public int CompareTo(Subasta? other)
         {
             return other.FechaPublicacion.CompareTo(this.FechaPublicacion);
         }

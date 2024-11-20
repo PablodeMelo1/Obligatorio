@@ -34,6 +34,14 @@ namespace Dominio
         public abstract void FinalizarPublicacion(Usuario usuario);
         public abstract string IdentificarPublicacion();       
         public abstract double CalculoUltimaOfertaPrecioFinal();
+        public virtual bool EsSubasta()
+        {
+            return false; // Por defecto, una publicación no es una subasta
+        }
+        public virtual bool EsVenta()
+        {
+            return false; // Por defecto, una publicación no es una subasta
+        }
 
         public TipoEstado Estado
         {

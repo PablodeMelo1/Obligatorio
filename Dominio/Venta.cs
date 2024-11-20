@@ -21,6 +21,10 @@ namespace Dominio
         {
             return "venta";
         }
+        public override bool EsVenta()
+        {
+            return true; 
+        }
 
         public string TieneOfertaRelampago() //retornar si la venta tien oferta relampago
         {

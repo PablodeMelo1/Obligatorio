@@ -296,10 +296,26 @@ namespace Dominio
         }
         #endregion
 
-        public List<Publicacion> SubastasOrdenadasPorFecha()
-        {            
-            _listaPublicaciones.Sort();
-            return _listaPublicaciones;
+        public List<Subasta> SubastasOrdenadasPorFecha()
+        {
+            // Crear una nueva lista para almacenar las subastas
+            List<Subasta> subastas = new List<Subasta>();
+
+            // Recorrer la lista de publicaciones y agregar solo aquellas que son subastas
+            foreach (Publicacion publicacion in _listaPublicaciones)
+            {
+                if (publicacion.EsSubasta())
+                {
+                    subastas.Add((Subasta)publicacion); // (Subasta)publicacion convierte el objeto publicacion de tipo Publicacion (su clase base)
+                                                        // al tipo Subasta (una clase derivada). 
+                }
+            }
+
+            // Ordenar las subastas por la fecha de publicación
+            subastas.Sort();
+
+            // Retornar la lista de subastas ordenadas
+            return subastas;
         }
 
         public Usuario Login(string email, string contrasena)

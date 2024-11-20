@@ -21,20 +21,38 @@ namespace Web.Controllers
                 return View("NoAutorizado");
             }
 
-            List<Publicacion> subastas = miSistema.SubastasOrdenadasPorFecha();
+            // Obtengo las subastas ordenadas. El método SubastasOrdenadasPorFecha() ya devuelve una lista de Subasta.
+            // Por lo tanto, no es necesario volver a verificar si un elemento es una Subasta en un bucle foreach.
+            List<Subasta> subastas = miSistema.SubastasOrdenadasPorFecha();
 
-            // Filtrar las publicaciones que son de tipo Subasta
-            foreach (Publicacion publicacion in miSistema.Publicacion)
-            {
-                if (publicacion is Subasta subasta)
-                {
-                    subastas.Add(subasta);
-                }
-            }
-
+            // Pasar las subastas a la vista
             ViewBag.ListadoSubastas = subastas;
             return View();
         }
+
+
+
+        //public IActionResult ListadoSubastas()
+        //{
+        //    if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
+        //    {
+        //        return View("NoAutorizado");
+        //    }
+
+        //    List<Publicacion> subastas = new List<Publicacion>();
+
+        //    // Filtrar las publicaciones que son de tipo Subasta
+        //    foreach (Subasta subasta in miSistema.SubastasOrdenadasPorFecha())
+        //    {
+        //        if (subasta.EsSubasta())
+        //        {
+        //            subastas.Add(subasta);
+        //        }
+        //    }
+
+        //    ViewBag.ListadoSubastas = subastas;
+        //    return View();
+        //}
 
 
 
@@ -97,7 +115,7 @@ namespace Web.Controllers
             {
                 Usuario u = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email"));
                 Publicacion p = miSistema.ObtenerPublicacionPorId(idP);
-                if (p is Venta v)
+                if (p.EsVenta())
                 {
                     p.FinalizarPublicacion(u);
                 }
