@@ -22,7 +22,7 @@ namespace Web.Controllers
             }
 
             // Obtengo las subastas ordenadas. El método SubastasOrdenadasPorFecha() ya devuelve una lista de Subasta.
-            // Por lo tanto, no es necesario volver a verificar si un elemento es una Subasta en un bucle foreach.
+            // Por lo tanto, no es necesario volver a verificar si un elemento es una Subasta recorriendo en un bucle foreach.
             List<Subasta> subastas = miSistema.SubastasOrdenadasPorFecha();
 
             // Pasar las subastas a la vista
