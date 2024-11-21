@@ -41,6 +41,9 @@ namespace Dominio
 
         public double Saldo { get; internal set; }
 
+        public abstract string Rol();
+        public abstract bool EsCliente();
+
         public void Validar()
         {
             if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) ||
@@ -53,9 +56,7 @@ namespace Dominio
             // Validación de la longitud de la contraseña 
             if (_contrasena.Length < 8) throw new Exception("La contraseña debe tener al menos 8 caracteres");
 
-        }
-
-        public abstract string Rol();
+        }        
 
         public override string ToString()
         {

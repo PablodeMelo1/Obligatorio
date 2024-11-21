@@ -58,6 +58,11 @@ namespace Dominio
             return "cliente";
         }
 
+        public override bool EsCliente()
+        {
+            return true;
+        }
+
         public void DescontarSaldo(double monto)
         {
             if (_saldo >= monto)

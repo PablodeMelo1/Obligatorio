@@ -28,27 +28,51 @@ namespace Dominio
             else return "No";
         }
 
+        //public override void FinalizarPublicacion(Usuario usuario)
+        //{
+        //    // Validar si el usuario es un Cliente
+        //    if (!(usuario is Cliente cliente))
+        //    {
+        //        throw new Exception("Solo un cliente puede finalizar esta venta.");
+        //    }
+
+        //    // Validar si el cliente tiene saldo suficiente
+        //    double precioFinal = CalculoUltimaOfertaPrecioFinal();
+        //    if (cliente.Saldo < precioFinal)
+        //    {
+        //        throw new Exception("Saldo insuficiente para completar la compra.");
+        //    }
+
+        //    // Si pasa las validaciones, proceder con el cierre de la venta
+        //    cliente.DescontarSaldo(precioFinal);
+        //    _comprador = cliente;  // Asignar el comprador al cerrar la venta
+        //    _estado = TipoEstado.CERRADA;
+        //    _usuarioCierre = cliente;
+        //    _fechaCierre = DateTime.Now;
+        //}
+
         public override void FinalizarPublicacion(Usuario usuario)
         {
-            // Validar si el usuario es un Cliente
-            if (!(usuario is Cliente cliente))
+            if (usuario.EsCliente())
+            {
+                Cliente cliente = (Cliente)usuario;  // Hacer el cast directo, ya que sabemos que es un Cliente
+                double precioFinal = CalculoUltimaOfertaPrecioFinal();
+
+                if (cliente.Saldo < precioFinal)
+                {
+                    throw new Exception("Saldo insuficiente para completar la compra.");
+                }
+
+                cliente.DescontarSaldo(precioFinal);
+                _comprador = cliente;
+                _estado = TipoEstado.CERRADA;
+                _usuarioCierre = cliente;
+                _fechaCierre = DateTime.Now;
+            }
+            else
             {
                 throw new Exception("Solo un cliente puede finalizar esta venta.");
             }
-
-            // Validar si el cliente tiene saldo suficiente
-            double precioFinal = CalculoUltimaOfertaPrecioFinal();
-            if (cliente.Saldo < precioFinal)
-            {
-                throw new Exception("Saldo insuficiente para completar la compra.");
-            }
-
-            // Si pasa las validaciones, proceder con el cierre de la venta
-            cliente.DescontarSaldo(precioFinal);
-            _comprador = cliente;  // Asignar el comprador al cerrar la venta
-            _estado = TipoEstado.CERRADA;
-            _usuarioCierre = cliente;
-            _fechaCierre = DateTime.Now;
         }
 
         public override double CalculoUltimaOfertaPrecioFinal()

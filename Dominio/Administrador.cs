@@ -22,5 +22,10 @@ namespace Dominio
         {
             return "administrador";
         }
+
+        public override bool EsCliente()
+        {
+            return false;
+        }
     }
 }
