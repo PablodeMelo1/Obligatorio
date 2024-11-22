@@ -94,31 +94,69 @@ namespace Dominio
         //    _fechaCierre = DateTime.Now;
         //}
 
+        //public override void FinalizarPublicacion(Usuario usuario)
+        //{
+        //    // Validar si el usuario es un Administrador
+        //    if (!usuario.EsCliente())
+        //    {
+        //        Administrador administrador = (Administrador)usuario;  // Hacer el cast directo
+
+        //        // Validar si hay una oferta válida con saldo suficiente
+        //        OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
+        //        if (mejorOferta == null) 
+        //        {
+        //            throw new Exception("No hay una oferta válida con saldo suficiente.");
+        //        }
+
+        //        Cliente clienteFinal = (Cliente)mejorOferta.Cliente; // Cast directo, ya sabemos que es un Cliente
+        //                                                             // Si pasa las validaciones, proceder con el cierre de la subasta
+        //        clienteFinal.DescontarSaldo(mejorOferta.Monto);
+        //        _comprador = mejorOferta.Cliente;  // Asignar el comprador
+        //        _estado = TipoEstado.CERRADA;
+        //        _usuarioCierre = administrador;
+        //        _fechaCierre = DateTime.Now;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Solo un administrador puede cerrar la subasta.");
+        //    }
+        //}
+
         public override void FinalizarPublicacion(Usuario usuario)
         {
-            // Validar si el usuario es un Administrador
-            if (!usuario.EsCliente())
-            {
-                Administrador administrador = (Administrador)usuario;  // Hacer el cast directo
-
-                // Validar si hay una oferta válida con saldo suficiente
-                OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
-                if (mejorOferta == null)
-                {
-                    throw new Exception("No hay una oferta válida con saldo suficiente.");
-                }
-
-                Cliente clienteFinal = (Cliente)mejorOferta.Cliente; // Cast directo, ya sabemos que es un Cliente
-                                                                     // Si pasa las validaciones, proceder con el cierre de la subasta
-                clienteFinal.DescontarSaldo(mejorOferta.Monto);
-                _comprador = mejorOferta.Cliente;  // Asignar el comprador
-                _estado = TipoEstado.CERRADA;
-                _usuarioCierre = administrador;
-                _fechaCierre = DateTime.Now;
-            }
-            else
+            // Lanzar excepción si el usuario no es un Administrador
+            if (usuario.EsCliente())
             {
                 throw new Exception("Solo un administrador puede cerrar la subasta.");
+            }
+
+            Administrador administrador = (Administrador)usuario; // Hacer el cast directo
+
+            // Ciclo para verificar si hay una oferta válida
+            bool subastaFinalizada = false; // Control para finalizar el bucle
+            while (!subastaFinalizada)
+            {
+                OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
+
+                if (mejorOferta == null)
+                {
+                    // Si la oferta es null o sea igual a 0, cambiar estado a CANCELADA
+                    _estado = TipoEstado.CANCELADA;
+                    _usuarioCierre = administrador;
+                    _fechaCierre = DateTime.Now;
+                    subastaFinalizada = true; // Salir del bucle
+                }
+                else
+                {
+                    // Procesar la oferta si es válida
+                    Cliente clienteFinal = (Cliente)mejorOferta.Cliente; // Cast directo
+                    clienteFinal.DescontarSaldo(mejorOferta.Monto);
+                    _comprador = mejorOferta.Cliente; // Asignar el comprador
+                    _estado = TipoEstado.CERRADA;
+                    _usuarioCierre = administrador;
+                    _fechaCierre = DateTime.Now;
+                    subastaFinalizada = true; // Salir del bucle
+                }
             }
         }
 
@@ -138,9 +176,9 @@ namespace Dominio
 
         public double ObtenerOfertaDeCliente(Cliente c)
         {
-            foreach (OfertaSubasta o in _listaOferta)
+            foreach (OfertaSubasta os in _listaOferta)
             {
-                if (o.Cliente.Equals(c)) return o.Monto;
+                if (os.Cliente.Equals(c)) return os.Monto;
             }
             return 0.0;
         }
