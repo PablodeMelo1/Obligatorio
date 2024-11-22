@@ -45,7 +45,16 @@ else
                     <td>@if (subasta.Estado == TipoEstado.ABIERTA)
                         {
                             <a class="btn btn-primary" href="/publicaciones/CerrarSubasta?idSubasta=@subasta.Id">Cerrar Subasta</a>
-                        } else {<h5>CERRADA</h5>}</td>
+                        }
+                        else if (subasta.Estado == TipoEstado.CERRADA)
+                        {
+                            <h5>CERRADA</h5>
+                        }
+                        else
+                        {
+                            <h5>CANCELADA</h5>
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

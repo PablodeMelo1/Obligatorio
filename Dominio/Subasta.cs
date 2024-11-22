@@ -21,22 +21,9 @@ namespace Dominio
         }
 
         public override void Validar(){            
-            //ValidarEstado();            
+                      
         }     
-              
-     
-        //public void ValidarEstado()
-        //{
-        //    if (_estado != TipoEstado.ABIERTA) throw new Exception("La subasta no está en estado ABIERTA.");
-        //}
 
-
-        //FALTA ACCEDER AL MONTO DE OfertaSubasta
-        //public void ModificarOfertaSubasta(double nuevaOferta)
-        //{
-        //    if (nuevaOferta <= 0) throw new Exception("El saldo debe ser mayor a 0");
-        //    OfertaSubasta.Monto = nuevaOferta;
-        //}
         public override double CalculoUltimaOfertaPrecioFinal()
         {
             if (_listaOferta.Count >= 1)
@@ -71,56 +58,6 @@ namespace Dominio
             _listaOferta.Add(ofe);
         }
 
-        //public override void FinalizarPublicacion(Usuario usuario)
-        //{
-        //    // Validar si el usuario es un Administrador
-        //    if (!(usuario is Administrador administrador))
-        //    {
-        //        throw new Exception("Solo un administrador puede cerrar la subasta.");
-        //    }
-
-        //    // Validar si hay una oferta válida con saldo suficiente
-        //    OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
-        //    if (mejorOferta == null)
-        //    {
-        //        throw new Exception("No hay una oferta válida con saldo suficiente.");
-        //    }
-        //    Cliente clienteFinal = mejorOferta.Cliente as Cliente;
-        //    // Si pasa las validaciones, proceder con el cierre de la subasta
-        //    clienteFinal.DescontarSaldo(mejorOferta.Monto);
-        //    _comprador = mejorOferta.Cliente; // Asignar el comprador
-        //    _estado = TipoEstado.CERRADA;
-        //    _usuarioCierre = administrador;
-        //    _fechaCierre = DateTime.Now;
-        //}
-
-        //public override void FinalizarPublicacion(Usuario usuario)
-        //{
-        //    // Validar si el usuario es un Administrador
-        //    if (!usuario.EsCliente())
-        //    {
-        //        Administrador administrador = (Administrador)usuario;  // Hacer el cast directo
-
-        //        // Validar si hay una oferta válida con saldo suficiente
-        //        OfertaSubasta mejorOferta = ObtenerPrimeraOfertaConSaldo();
-        //        if (mejorOferta == null) 
-        //        {
-        //            throw new Exception("No hay una oferta válida con saldo suficiente.");
-        //        }
-
-        //        Cliente clienteFinal = (Cliente)mejorOferta.Cliente; // Cast directo, ya sabemos que es un Cliente
-        //                                                             // Si pasa las validaciones, proceder con el cierre de la subasta
-        //        clienteFinal.DescontarSaldo(mejorOferta.Monto);
-        //        _comprador = mejorOferta.Cliente;  // Asignar el comprador
-        //        _estado = TipoEstado.CERRADA;
-        //        _usuarioCierre = administrador;
-        //        _fechaCierre = DateTime.Now;
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("Solo un administrador puede cerrar la subasta.");
-        //    }
-        //}
 
         public override void FinalizarPublicacion(Usuario usuario)
         {
@@ -162,16 +99,32 @@ namespace Dominio
 
         private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
         {
-            foreach (OfertaSubasta oferta in _listaOferta)
+            OfertaSubasta buscado = null;
+            int i = _listaOferta.Count - 1;
+            while (buscado == null && i >= 0)
             {
-                Cliente c = oferta.Cliente as Cliente;
-                if (c.Saldo >= oferta.Monto)
+                Cliente c = _listaOferta[i].Cliente as Cliente;
+                if (c.Saldo >= _listaOferta[i].Monto)
                 {
-                    return oferta; // Devolvemos la primera oferta válida
+                    buscado = _listaOferta[i]; // devolvemos la primera oferta válida
                 }
+                i--;
             }
-            return null; // Si no hay ninguna oferta válida
+
+            return buscado; // Si no hay ninguna oferta válida
         }
+        //private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
+        //{
+        //    foreach (OfertaSubasta oferta in _listaOferta)
+        //    {
+        //        Cliente c = oferta.Cliente as Cliente;
+        //        if (c.Saldo >= oferta.Monto)
+        //        {
+        //            return oferta; // Devolvemos la primera oferta válida
+        //        }
+        //    }
+        //    return null; // Si no hay ninguna oferta válida
+        //}
 
 
         public double ObtenerOfertaDeCliente(Cliente c)

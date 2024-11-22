@@ -31,31 +31,6 @@ namespace Web.Controllers
         }
 
 
-
-        //public IActionResult ListadoSubastas()
-        //{
-        //    if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
-        //    {
-        //        return View("NoAutorizado");
-        //    }
-
-        //    List<Publicacion> subastas = new List<Publicacion>();
-
-        //    // Filtrar las publicaciones que son de tipo Subasta
-        //    foreach (Subasta subasta in miSistema.SubastasOrdenadasPorFecha())
-        //    {
-        //        if (subasta.EsSubasta())
-        //        {
-        //            subastas.Add(subasta);
-        //        }
-        //    }
-
-        //    ViewBag.ListadoSubastas = subastas;
-        //    return View();
-        //}
-
-
-
         public IActionResult CerrarSubasta(int idSubasta)
         {
             if (HttpContext.Session.GetString("rol") == null || HttpContext.Session.GetString("rol") != "administrador")
@@ -68,7 +43,13 @@ namespace Web.Controllers
                 Usuario u = miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email"));
                 Subasta s = miSistema.ObtenerPublicacionPorId(idSubasta) as Subasta;
                 s.FinalizarPublicacion(u);
-                TempData["Exito"] = $"Subasta cerrada con exito!";
+                Publicacion p = miSistema.ObtenerPublicacionPorId(idSubasta);
+                if (p.Estado == TipoEstado.CANCELADA)
+                {
+                    TempData["Exito"] = $"No hay ofertas validas, CANCELADA con exito!";
+                }
+                else TempData["Exito"] = $"Subasta cerrada con exito!";
+
             }
             catch (Exception ex)
             {

@@ -153,10 +153,10 @@ namespace Dominio
             AltaPublicacion(new Subasta("Subasta 1", TipoEstado.ABIERTA, new DateTime(2024, 10, 5), null, null, null));
             AltaPublicacion(new Subasta("Subasta 2", TipoEstado.ABIERTA, new DateTime(2024, 10, 9), null, null, null));
             AltaPublicacion(new Subasta("Subasta 3", TipoEstado.ABIERTA, new DateTime(2024, 9, 28), null, null, null));
-            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.CERRADA, new DateTime(2024, 10, 1), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 4", TipoEstado.ABIERTA, new DateTime(2024, 10, 1), null, null, null));
             AltaPublicacion(new Subasta("Subasta 5", TipoEstado.ABIERTA, new DateTime(2024, 10, 3), null, null, null));
             AltaPublicacion(new Subasta("Subasta 6", TipoEstado.ABIERTA, new DateTime(2024, 9, 30), null, null, null));
-            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.CERRADA, new DateTime(2024, 10, 7), null, null, null));
+            AltaPublicacion(new Subasta("Subasta 7", TipoEstado.ABIERTA, new DateTime(2024, 10, 7), null, null, null));
             AltaPublicacion(new Subasta("Subasta 8", TipoEstado.ABIERTA, new DateTime(2024, 9, 29), null, null, null));
             AltaPublicacion(new Subasta("Subasta 9", TipoEstado.ABIERTA, new DateTime(2024, 10, 4), null, null, null));
             AltaPublicacion(new Subasta("Subasta 10", TipoEstado.ABIERTA, new DateTime(2024, 10, 6), null, null, null));

@@ -105,7 +105,7 @@ namespace Web.Controllers
                 Cliente c = miSistema.ObtenerClientePorId(miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")).Id);
                 //c.ModificarSaldo(nuevoSaldo);
                 // falta try and catch
-                if (nuevoSaldo < 0) throw new Exception("El saldo no puede ser negativo");
+                if (nuevoSaldo < 0) throw new Exception("El monto no puede ser negativo");
 
                 miSistema.ModificarSaldoDeCliente(c.Id, nuevoSaldo);
                 ViewBag.Exito = $"Se modificó el saldo del cliente {c.Nombre} - Nuevo saldo: ${c.Saldo}";
