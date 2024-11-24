@@ -21,7 +21,7 @@ namespace Dominio
         }
 
         public override void Validar(){            
-                      
+          // Revisar el martes, consultar al profe los Validar y agregar Validaciones en los Controller en caso de que sea necesario
         }     
 
         public override double CalculoUltimaOfertaPrecioFinal()
@@ -113,20 +113,7 @@ namespace Dominio
 
             return buscado; // Si no hay ninguna oferta válida
         }
-        //private OfertaSubasta ObtenerPrimeraOfertaConSaldo()
-        //{
-        //    foreach (OfertaSubasta oferta in _listaOferta)
-        //    {
-        //        Cliente c = oferta.Cliente as Cliente;
-        //        if (c.Saldo >= oferta.Monto)
-        //        {
-        //            return oferta; // Devolvemos la primera oferta válida
-        //        }
-        //    }
-        //    return null; // Si no hay ninguna oferta válida
-        //}
-
-
+        
         public double ObtenerOfertaDeCliente(Cliente c)
         {
             foreach (OfertaSubasta os in _listaOferta)

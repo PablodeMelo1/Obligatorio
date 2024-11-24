@@ -385,18 +385,7 @@ namespace Dominio
             c.ModificarSaldo(c.Saldo + nuevoSaldo);
 
         }
-
-        //FALTA TERMINAR ESTE METODO, EL PROBLEMA ES QUE NO PUEDO ACCEDER AL MONTO DE LA OFERTA YA QUE SE ENCUENTRA
-        //EN LA CLASE OfertaSubasta Y NO EN LA CLASE Subasta.
-        //public void ModificarOfertaSubasta(int idSubasta, double nuevaOferta)
-        //{
-        //    Subasta s = ObtenerSubastaPorId(idSubasta);
-
-        //    if (s == null) throw new Exception("El cliente no se encontró");
-        //    s.CambiarOfertaSubasta(nuevaOferta);
         
-        //}
-
         #region OBTENER POR ID
         public Cliente ObtenerClientePorId(int id)
         {

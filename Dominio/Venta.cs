@@ -27,9 +27,7 @@ namespace Dominio
             if (_ofertaRelampago) return "Si";
             else return "No";
         }
-
-     
-
+        
         public override void FinalizarPublicacion(Usuario usuario)
         {
             if (usuario.EsCliente())

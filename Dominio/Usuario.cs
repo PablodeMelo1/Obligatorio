@@ -63,9 +63,10 @@ namespace Dominio
             return $"nombre: {_nombre} - apellido: {_apellido} email: {_email}";
         }
 
-        public void DescontarSaldo(double monto)
-        {
-                Saldo -= monto;
-        }
+        //public void DescontarSaldo(double monto)
+        //{
+        //    Saldo -= monto;
+        //}
+
     }
 }
