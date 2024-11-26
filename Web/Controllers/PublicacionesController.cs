@@ -12,7 +12,7 @@ namespace Web.Controllers
     public class PublicacionesController : Controller
     {
         Sistema miSistema = Sistema.Instancia;
-
+       
         [HttpGet]
         public IActionResult ListadoSubastas()
         {
@@ -20,8 +20,7 @@ namespace Web.Controllers
             {
                 return View("NoAutorizado");
             }
-
-            // Obtengo las subastas ordenadas. El método SubastasOrdenadasPorFecha() ya devuelve una lista de Subasta.
+            // Obtengo las subastas ordenadas. El método SubastasOrdenadasPorFecha() y devuelve una lista de Subasta.
             // Por lo tanto, no es necesario volver a verificar si un elemento es una Subasta recorriendo en un bucle foreach.
             List<Subasta> subastas = miSistema.SubastasOrdenadasPorFecha();
 
@@ -68,8 +67,7 @@ namespace Web.Controllers
             }
 
             try
-            {
-            // Agregar Validacion      
+            {      
 
             List<Publicacion> publicaciones = new List<Publicacion>();
             publicaciones = miSistema.Publicacion;

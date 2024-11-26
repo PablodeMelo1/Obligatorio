@@ -9,7 +9,7 @@ namespace Dominio
 {
     public class Subasta : Publicacion, IComparable<Subasta>
     {
-        private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); //Agregue el "new List<OfertaSubasta>();" para crear el objeto y cuando apliquemos add, pueda agregar las ofertas
+        private List<OfertaSubasta>? _listaOferta = new List<OfertaSubasta>(); 
 
         public Subasta(string nombre, TipoEstado estado, DateTime fechaPublicacion, Usuario comprador, Usuario usuarioCierre, DateTime? fechaCierre):base(nombre, estado, fechaPublicacion, comprador, usuarioCierre, fechaCierre)
         {
@@ -20,8 +20,9 @@ namespace Dominio
             get { return _listaOferta; }
         }
 
-        public override void Validar(){            
-          // Revisar el martes, consultar al profe los Validar y agregar Validaciones en los Controller en caso de que sea necesario
+        public override void Validar(){
+            if (_listaOferta == null) throw new Exception("La lista de ofertas no puede ser nula");
+
         }     
 
         public override double CalculoUltimaOfertaPrecioFinal()

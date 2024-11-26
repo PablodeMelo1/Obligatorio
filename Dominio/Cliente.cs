@@ -33,6 +33,11 @@ namespace Dominio
             get { return _saldo; }
             set { _saldo = value; }
         }
+
+        public void Validar()
+        {
+            if (_saldo <= 0) throw new Exception("El saldo debe ser mayor a 0");
+        }
        
         
         ///metodo para modificar el saldo del cliente
