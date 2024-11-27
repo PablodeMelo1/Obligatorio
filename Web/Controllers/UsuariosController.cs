@@ -42,6 +42,7 @@ namespace Web.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            TempData["logout"] = $"Sesion cerrada Exitosamente!";
             return RedirectToAction("Login");
         }
 
@@ -103,8 +104,6 @@ namespace Web.Controllers
             {
 
                 Cliente c = miSistema.ObtenerClientePorId(miSistema.ObtenerUsuarioPorEmail(HttpContext.Session.GetString("email")).Id);
-                //c.ModificarSaldo(nuevoSaldo);
-                // falta try and catch
                 if (nuevoSaldo < 0) throw new Exception("El monto no puede ser negativo");
 
                 miSistema.ModificarSaldoDeCliente(c.Id, nuevoSaldo);

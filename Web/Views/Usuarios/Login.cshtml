@@ -6,6 +6,11 @@
 <h1>Login</h1>
 <br />
 
+@if (TempData["logout"] != null)
+{
+    <div class="alert alert-success">@TempData["logout"]</div>
+}
+
 @if (ViewBag.Error != null)
 {
     <div class="alert alert-danger">@ViewBag.Error</div>

@@ -57,7 +57,7 @@ namespace Dominio
             if (string.IsNullOrEmpty(_nombre)) throw new Exception("El nombre no puede ser vacio");
             if (_estado != TipoEstado.ABIERTA) throw new Exception("La publicación no se encuentra en estado ABIERTA.");
             if (_estado == TipoEstado.CERRADA && _usuarioCierre == null) throw new Exception("Debe de existir un usuario de cierre si la publicación está cerrada.");
-            if (_comprador == null) throw new Exception("El comprador no puede ser nulo");
+            //if (_comprador == null) throw new Exception("El comprador no puede ser nulo"); //Esta mal porque si puede ser nulo
             if (_listaArticulos == null) throw new Exception("La lista de articulos no puede ser nula");
         } 
 
