@@ -36,7 +36,7 @@ namespace Dominio
 
         public override void Validar()
         {
-            if (_saldo <= 0) throw new Exception("El saldo debe ser mayor a 0");
+            
         }
        
         
