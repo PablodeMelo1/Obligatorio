@@ -18,12 +18,12 @@ namespace Dominio
             get { return _id; }
         }        
 
-        public override string Rol()
+        public override string Rol() //Metodo Rol() es una sobrescritura override de un método en su clase base.
         {
             return "administrador";
         }
 
-        public override bool EsCliente()
+        public override bool EsCliente() //Metodo EsCliente() es una sobrescritura override de un método en su clase base.
         {
             return false;
         }
