@@ -34,7 +34,7 @@ namespace Dominio
             set { _saldo = value; }
         }
 
-        public void Validar()
+        public override void Validar()
         {
             if (_saldo <= 0) throw new Exception("El saldo debe ser mayor a 0");
         }

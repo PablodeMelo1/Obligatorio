@@ -44,7 +44,7 @@ namespace Dominio
         public abstract string Rol();
         public abstract bool EsCliente();
 
-        public void Validar()
+        public virtual void Validar()
         {
             if (string.IsNullOrEmpty(_nombre) || string.IsNullOrEmpty(_apellido) ||
                 string.IsNullOrEmpty(_email) || string.IsNullOrEmpty(_contrasena))

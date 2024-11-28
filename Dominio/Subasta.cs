@@ -20,9 +20,8 @@ namespace Dominio
             get { return _listaOferta; }
         }
 
-        public override void Validar(){
+        public override void Validar(){            
             if (_listaOferta == null) throw new Exception("La lista de ofertas no puede ser nula");
-
         }     
 
         public override double CalculoUltimaOfertaPrecioFinal()
